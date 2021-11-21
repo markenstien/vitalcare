@@ -2,102 +2,69 @@
 	
 	$routes = [];
 
-	$controller = '/HomeController';
+	$controller = '/UserController';
 
-	$routes['home'] = [
-		'index' => $controller.'/index'
-	];
-
-	$controller = '/TopTenController';
-
-	$routes['topTen'] = [
-		'index' => $controller.'/index'
-	];
-
-	$controller = '/AvatarController';
-
-	$routes['avatar'] = [
+	$routes['user'] = [
 		'index' => $controller.'/index',
-		'show' => $controller.'/show'
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
 
-	$controller = '/BalancerController';
+	$controller = '/ServiceController';
 
-	$routes['balancer'] = [
+	$routes['service'] = [
 		'index' => $controller.'/index',
-		'show'  => $controller.'/show'
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
 
-	$controller = '/LeagueController';
+	$controller = '/ServiceBundleController';
 
-	$routes['league'] = [
-		'index' => $controller .'/index',
-		'show'  => $controller .'/show'
+	$routes['service-bundle'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
 
-	$controller = '/LeaguePlayerController';
+	$controller = '/ServiceBundleItemController';
 
-	$routes['leaguePlayer'] = [
-		'search' => $controller .'/search'
+	$routes['service-bundle-item'] = [
+		'index' => $controller.'/index',
+		'add' => $controller.'/add',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
 
-	$controller = '/DotaController';
+	
 
-	$routes['dota'] = [
-		'index' => $controller .'/index',
-		'show'  => $controller .'/show'
+	$controller = '/SpecialtyController';
+
+	$routes['specialty'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
+	
+	$controller = '/CategoryController';
 
-	$controller = '/DotaBalancerController';
-
-	$routes['dotaBalancer'] = [
-		'index' => $controller .'/index',
-		'show'  => $controller .'/show'
+	$routes['category'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/delete',
+		'show'   => $controller.'/show'
 	];
-
-
-	$controller = '/LoginController';
-
-	$routes['login'] = [
-		'action' => $controller.'/loginAction',
-		'index'  => $controller.'/index',
-		'destroy'  => $controller.'/destroy',
-	];
-
-	$controller = '/LeagueBalancerController';
-
-	$routes['leagueBalancer'] = [
-		'index' => $controller .'/index',
-		'show' => $controller .'/show',
-	];
-
-	$controller = '/ApiKeyController';
-
-	$routes['api'] = [
-		'edit' => $controller .'/edit',
-	];
-		
-
-	$controller = '/MobileLegendController';
-
-	$routes['mobile'] = [
-		'show' => $controller.'/show',
-		'index' => $controller.'/index'
-	];
-
-
-	$controller = '/MobileLegendBalancerController';
-
-	$routes['mobileBalancer'] = [
-		'index' => $controller.'/index'
-	];
-
-
-	$controller = '/MatchesController';
-
-	$routes['match'] = [
-		'index' => $controller .'/index'
-	];
+	
 
 	return $routes;
 ?>

@@ -1,4 +1,4 @@
-const URL = 'https://corefounders.com';
+const URL = 'http://th.vitalcare';
 
 const DS  = '/';
 

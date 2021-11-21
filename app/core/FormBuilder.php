@@ -54,7 +54,16 @@
 
 
 		public function label($html , $for = null, $attributes = null)
-		{
+		{	
+			$attributes['class'] = ' col-form-label ';
+
+			if( isset($attributes['class']) )
+			{
+				$attributes['class'] .= ' col-form-label ';
+			}else{
+				$attributes['class'] = ' col-form-label ';
+			}
+
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
 			$html = ucwords($html);
@@ -116,7 +125,6 @@
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
 			$value = is_null(\FormInput::get($name)) ? $value : \FormInput::get($name);
-
 			return <<<EOF
 				<input type="email" name="{$name}"
 					value="$value" $attributes>
@@ -240,19 +248,7 @@
 
 		public function call($type , $name , $value , $attributes)
 		{
-			switch($type)
-			{
-				case 'text':
-				case 'hidden':
-				case 'checkbox':
-				case 'radio':
-				case 'textarea':
-				case 'submit':
-				case 'number':
-				case 'date':
-				case 'time':
-					return call_user_func([$this , $type], ...[$name , $value , $attributes]);
-				break;
-			}
+			return call_user_func([$this , $type], ...[$name , $value , $attributes]);
+
 		}
 	}

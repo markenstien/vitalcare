@@ -8,7 +8,7 @@
 			if( is_null(self::$instance) )
 				self::$instance = new Form();
 
-			return self::$instance;
+			echo self::$instance;
 		}
 
 		public static function select($name , $values , $selected = null, $attributes = null)
@@ -52,7 +52,7 @@
 				}
 			}
 
-			return <<<EOF
+			echo <<<EOF
 				<select name = "{$name}" {$attributes}>
 					<option value=''>--Select</option>
 					{$options}
@@ -67,7 +67,7 @@
 
 			$html = ucwords($html);
 
-			return <<<EOF
+			echo <<<EOF
 				<label {$attributes} for="{$for}">
 					{$html}
 				</label>
@@ -78,7 +78,7 @@
 		{
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="checkbox" name="{$name}" value="{$value}" {$attributes} />
 			EOF;
 		}
@@ -90,7 +90,7 @@
 
 			$html = ucwords($html);
 
-			return <<<EOF
+			echo <<<EOF
 				<small {$attributes}>
 					{$html}
 				</small>
@@ -101,7 +101,7 @@
 		{
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="hidden" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -112,7 +112,7 @@
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 			$value = is_null(FormInput::get($name)) ? $inputValue : FormInput::get($name);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="text" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -125,7 +125,7 @@
 
 			$value = is_null(FormInput::get($name)) ? $value : FormInput::get($name);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="email" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -141,7 +141,7 @@
 			if(!$preservePassword)
 				$value = '';
 			
-			return <<<EOF
+			echo <<<EOF
 				<input type="password" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -154,7 +154,7 @@
 			$value = is_null(FormInput::get($name)) ? $value : FormInput::get($name);
 
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="number" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -166,7 +166,7 @@
 
 			$value = is_null(FormInput::get($name)) ? $value : FormInput::get($name);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="date" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -178,7 +178,7 @@
 
 			$value = is_null(FormInput::get($name)) ? $value : FormInput::get($name);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="time" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -191,7 +191,7 @@
 
 			$value = is_null(FormInput::get($name)) ? $value : FormInput::get($name);
 
-			return <<<EOF
+			echo <<<EOF
 				<textarea name="{$name}" $attributes>$value</textarea>
 			EOF;
 		}
@@ -201,7 +201,7 @@
 		{
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
-			return <<<EOF
+			echo <<<EOF
 				<input type="file" name="{$name}" $attributes>
 			EOF;
 		}
@@ -218,7 +218,7 @@
 			$value = is_null($value) ? "Submit" : $value;
 
 			
-			return <<<EOF
+			echo <<<EOF
 				<input type="submit" name="{$name}"
 					value="$value" $attributes>
 			EOF;
@@ -234,7 +234,7 @@
 
 			$attributes = is_null($attributes) ? $attributes : keypairtostr($attributes);
 
-			return <<<EOF
+			echo <<<EOF
 				<form $attributes>
 			EOF;
 		}
@@ -242,7 +242,7 @@
 
 		public static function close()
 		{
-			return <<<EOF
+			echo <<<EOF
 				</form>
 			EOF;
 		}

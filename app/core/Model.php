@@ -5,6 +5,18 @@
 
 		private $_error = [];
 		private static $instance = null;
+		
+		
+		public function getFillablesOnly($datas)
+		{
+			$return = [];
+
+			foreach($datas as $key => $row) {
+				if( isEqual($key, $this->_fillables) )
+					$return[$key] = $row;
+			}
+			return $return;
+		}
 
  		public function __construct()
  		{
@@ -121,7 +133,7 @@
 			return $this->dbHelper->single(...$data);
 		}
 
-		public function dbgetAssoc($field , $where = null)
+		public function getAssoc($field , $where = null)
 	    {
 			if(is_array($where))
 			$where = $this->conditionEqual($where);
@@ -136,7 +148,7 @@
 	      return $this->dbHelper->resultSet(...$data);
 	    }
 
-	    public function dbgetDesc($field , $where = null)
+	    public function getDesc($field , $where = null)
 	    {
 		  if(is_array($where))
 			$where = $this->conditionEqual($where);
@@ -158,6 +170,19 @@
 				'*',
 				null,
 				'id asc',
+				'1'
+			];
+			
+			return $this->dbHelper->single(...$data);
+		}
+
+		public function last()
+		{
+			$data = [
+				$this->table ,
+				'*',
+				null,
+				'id desc',
 				'1'
 			];
 			

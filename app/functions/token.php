@@ -11,6 +11,12 @@
         return $result;
     }
 
+    function random_letter($length = 12)
+    {
+    	$sets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    	return substr(str_shuffle($sets), 0, $length);
+    }
     function get_token_random_char($length = 12 , $params = false)
     {
         $bytes = random_bytes($length);

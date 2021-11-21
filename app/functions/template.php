@@ -11,11 +11,12 @@
     }
 
 
-    function loadTo($viewPath = 'tmp/private')
+    function loadTo($viewPath = 'tmp/backend')
     {
-        $data = $GLOBALS['data'];
+        $data = $GLOBALS['data'] ?? null;
 
-        extract($data);
+        if( !is_null($data) )
+            extract($data);
 
         $viewPath = convertDotToDS($viewPath);
 

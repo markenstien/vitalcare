@@ -1,10 +1,8 @@
 <?php
-    
 
-    function test_func($name , $sure_name , $age)
+    function __($data)
     {
-
-        echo "{$name} {$sure_name} {$age}";
+        echo $data;
     }
     
     function getRecentGameResetDate()

@@ -39,9 +39,9 @@
 
     define('GLOBALS' , APPROOT.DS.'classes/globals');
 
-    define('SITE_NAME' , 'newmeta.digital');
+    define('SITE_NAME' , 'vitalcare.sbs');
 
-    define('COMPANY_NAME' , 'New Meta');
+    define('COMPANY_NAME' , 'VITAL CARE');
 
     define('KEY_WORDS' , '#############');
 
@@ -49,14 +49,4 @@
     define('DESCRIPTION' , '#############');
 
     define('AUTHOR' , SITE_NAME);
-
-
-
-    /**
-     * OTHERS
-     */
-
-    define('GAMES_DOTA' , 'dota');
-    define('GAMES_ML' , 'mobile_legends');
-    define('GAMES_LOL' , 'league_of_legends');
 ?>

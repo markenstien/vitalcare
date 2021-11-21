@@ -29,7 +29,7 @@
 		    $form_param = [];
 
 			$form_param['method'] = strtoupper($params['method'] ?? $this->_method);
-			$form_param['url'] = strtoupper($params['url'] ?? $this->_url);
+			$form_param['url'] = $params['url'] ?? $this->_url;
 
 			if( isset($params['enctype']))
 				$form_param['enctype'] = 'multipart/form-data';
@@ -64,22 +64,71 @@
 			//for password only
 			$preserve = $params['preserve'] ?? false;
 
-			$this->_items[$name] = [
+			$item = [
 				'name' => $name,
 				'type' => $type,
 				'value' => $value,
 				'attributes' => $classAndAddtributes,
 				'option_values' => $option_values,
-				'label'  => $label
+				'label'  => $label,
+				'preserve' => $preserve
 			];
+
+			if( isset($params['required']) )
+			{
+				if( $params['required'] === FALSE) 
+				{
+					unset($params['required']);
+				}else{
+					$label .= " * ";
+					$item['required'] = TRUE;
+				}
+					
+			}
+
+			$this->_items[$name] = $item;
 		}
 
-		public function getRaw($name)
+		public function addAfter($after_key , $item)
 		{
-			$item = $this->_items[$name];
+			$this->add($item);
 
-			if(!$item) 
+			$key_to_move = $item['name'];
+
+			//get items
+			$array = $this->_items;
+			//get item keys
+			$array_keys = array_keys($array);
+			//key_to_move_position
+			$key_to_move_position = array_search($key_to_move , $array_keys);
+			//get after key position
+			$key_after_position = array_search($after_key , $array_keys);
+			//unset to move key to avoid duplication
+			unset($array_keys[$key_to_move_position]);
+			//key to move , put after the after key index
+			array_splice($array_keys , ($key_after_position + 1) , 0 , [$key_to_move]);
+			//reorder
+			$new_order = [];
+
+			foreach($array_keys as $pos => $key)
+			{
+				$new_order[$key] = $array[$key];
+			}
+
+			$this->_items = $new_order;
+		}
+
+		public function getRaw($name , $attributes = [])
+		{
+			$item = $this->_items[$name] ?? false;
+
+			if(!$item){
 				echo die("Form $this->name input {$name} does not exists!!");
+				return false;
+			}
+
+			if( isset($attributes['input']) )
+				$item = $this->overwriteParams($item , $attributes['input']);
 
 			return $item;
 		}
@@ -92,13 +141,18 @@
 			];
 		}
 
-		public function get($name)
-		{
+		public function get($name , $attributes = [])
+		{	
 			$item = $this->getRaw($name);
+
+			//check if has attribute changes
+			if( isset($attributes) )
+				$item = $this->overwriteParams($item , $attributes);
 
 			switch( $item['type'] )
 			{
 				case 'text':
+				case 'email':
 				case 'hidden':
 				case 'checkbox':
 				case 'radio':
@@ -111,25 +165,30 @@
 				break;
 
 				case 'password':
-					return Form::password($item['name'], $item['value'] , $item['attributes'] , $item['preserve']);
+					return $this->_form->password($item['name'], $item['value'] , $item['attributes'] , $item['preserve']);
 				break;
 
 				case 'file':
-					return Form::file($item['name'], $item['attributes']);
+					return $this->_form->file($item['name'], $item['attributes']);
+				break;
+
+				case 'select':
+					return $this->_form->select($item['name'] , $item['option_values'] , $item['value'] , $item['attributes']);
 				break;
 			}
 		}
 
 		/**
 		 * labelname and input row format*/
-		public function getCol($name)
+		public function getCol($name , $attributes = [])
 		{
 			$item = $this->getRaw($name);
+
 			if(!isset($item['label']))
 				echo die("Cannot create Column {$name} , No Label specified");
 
 			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
-			$form_input = $this->get($name);
+			$form_input = $this->get($name ,$attributes['input'] ?? null);;
 			return <<<EOF
 				{$form_label}
 				{$form_input}
@@ -138,19 +197,22 @@
 
 		/**
 		 * labelname and input row format*/
-		public function getRow($name)
+		public function getRow($name , $attributes = [])
 		{
 			$item = $this->getRaw($name);
-			if(!isset($item['label']))
+
+			if( !isEqual($item['type']  , ['hidden' , 'submit']) && !isset($item['label'])){
 				echo die("Cannot create Column {$name} , No Label specified");
+			}
+				
 
 			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
-			$form_input = $this->get($name);
+			$form_input = $this->get($name ,$attributes['input'] ?? null);
 			
 			return <<<EOF
 				<div class='row'>
-					<div class='col-md-4'>{$form_label}</div>
-					<div class='col-md-8'>{$form_input}</div>
+					<div class='col-md-2'>{$form_label}</div>
+					<div class='col-md-10'>{$form_input}</div>
 				</div>
 			EOF;
 		}
@@ -172,11 +234,134 @@
 			if( isset($params['class']))
 				$valid_array_param['class'] = $params['class'];
 
-			if( isset($params['required']))
-				$valid_array_param = array_merge($valid_array_param , $params['required']);
-
-
 			return $valid_array_param;
 		}
 
+		private function overwriteParams($attributes , $new_attributes)
+		{
+			
+
+			foreach($new_attributes as $new_attr_key => $new_attr)
+			{
+				if( $new_attr_key == 'required')
+				{
+					if( $new_attr_key === FALSE){
+						unset($new_attributes['required']);
+						unset($attributes['required']);
+					}else{
+						$attributes['requried'] = TRUE;
+					}
+				}
+
+				$isset = isset($attributes[$new_attr_key]);
+
+				if( isset($isset) && is_array($new_attr) )
+				{
+					foreach($new_attr as $new_attr_attr_key => $new_attr_attr){
+						$attributes[$new_attr_key][$new_attr_attr_key] = $new_attr_attr;
+					}
+				}else
+				{
+					$attributes[$new_attr_key] = $new_attr;
+				}
+			}
+
+			
+
+			return $attributes;
+		}
+
+
+		public function setValueObject($object)
+		{
+			$return = [];
+
+			$items = $this->_items;
+
+			foreach($items as $key => $item) 
+			{
+				$name = trim($item['name']);//column_name equivalent
+
+				if( isset($object->$name) )
+					$items[$key]['value'] = $object->$name;
+			}
+
+			$this->_items = $items;
+
+			return $items;
+		}
+
+		public function setUrl($url)
+		{
+			$this->_form_param['url'] = $url;
+		}
+
+		public function addId($id)
+		{
+			$this->add([
+				'type' => 'hidden',
+				'value' => $id,
+				'name'  => 'id'
+			]);
+		}
+
+		public function getId()
+		{
+			$id = $this->getRaw('id');
+
+			if(!$id){
+				echo die("Form {$this->name} input Id field not found");
+				return false;
+			}
+			return $this->get('id');
+		}
+
+
+		public function getForm($inputType = 'row')
+		{
+			$html = '';
+
+			$html .= $this->start();
+
+			$items = $this->_items;
+			
+			foreach($items as $item) 
+			{
+				if( isEqual($item['type'] , 'submit') )
+				{
+					$btn = $this->get($item['name']);
+
+					$html .= <<<EOF
+						<div>
+							{$btn}
+						</div>
+					EOF;
+
+				}else
+				{
+					$label_input_bundle = $this->getRow($item['name']);
+
+					$html .= <<<EOF
+						<div class='form-group'>
+							{$label_input_bundle}
+						</div>
+					EOF;
+				}
+			}
+
+			$html .= $this->end();
+
+			return $html;
+		}
+
+		final public function customSubmit($value = null , $name = null, $attributes = null)
+		{
+			$this->add([
+				'type' => 'submit',
+				'name' => $name ?? 'submit',
+				'value' => $value ?? 'save',
+				'attributes' => $attributes ?? [],
+				'class' => 'btn btn-primary'
+			]);
+		}
 	} 
