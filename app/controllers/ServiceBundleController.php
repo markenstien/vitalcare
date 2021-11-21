@@ -36,9 +36,12 @@
 					Flash::set( $this->model->getErrorString() , 'danger');
 					return request()->return();
 				}
+
 				Flash::set( $this->model->getMessageString() );
-				return redirect( _route('service-bundle:index'));
+
+				return redirect( _route('service-bundle-tem:add' , $res));
 			}
+
 			$this->_form->init([
 				'url' => _route('service-bundle:create')
 			]);
