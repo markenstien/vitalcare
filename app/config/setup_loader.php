@@ -59,19 +59,14 @@
         break;
 
         case 'up':
-            define('URL' , 'https://www.nextmeta.digital');
+            define('URL' , 'https://vitalcare.sbs/');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
-            define('DBUSER' , 'arthsobx_arthaland');
-            define('DBPASS' , ';(*pDWHQA%[^');
-            define('DBNAME' , 'arthsobx_game_stats');
+            define('DBUSER' , 'arthsobx_vitalcare');
+            define('DBPASS' , 'xjiR&]ccqs&]');
+            define('DBNAME' , 'arthsobx_vitalcare');
 
             define('BASECONTROLLER' , 'HomeController');
             define('BASEMETHOD' , 'index');
-
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-            
         break;
     }
