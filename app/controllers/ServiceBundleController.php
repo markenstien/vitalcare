@@ -39,7 +39,7 @@
 
 				Flash::set( $this->model->getMessageString() );
 
-				return redirect( _route('service-bundle-tem:add' , $res));
+				return redirect( _route('service-bundle-item:add' , $res));
 			}
 
 			$this->_form->init([
