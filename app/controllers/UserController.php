@@ -37,7 +37,10 @@
 
 				Flash::set( $this->model->getMessageString());
 
-				if(!$res) Flash::set( $this->model->getErrorString() , 'danger');
+				if(!$res) {
+					Flash::set( $this->model->getErrorString() , 'danger');
+					return request()->return();
+				}
 
 				return redirect(_route('user:index'));
 			}
