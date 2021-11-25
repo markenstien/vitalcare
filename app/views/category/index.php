@@ -24,7 +24,10 @@
 							<td><?php echo strtoupper($row->category)?></td>
 							<td><?php echo $row->cat_key?></td>
 							<td>
-								<a href="#">Edit</a>
+								<?php __([
+									btnEdit(_route('category:edit' , $row->id)),
+									btnDelete(_route('category:delete' , $row->id))
+								])?>
 							</td>
 						</tr>
 					<?php endforeach?>

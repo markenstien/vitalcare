@@ -20,7 +20,8 @@
     <link href="<?php echo _path_tmp('css/sb-admin-2.min.css')?>" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css"/>
-    
+    <link rel="stylesheet" type="text/css" href="<?php echo _path_public('css/main/global.js')?>">
+    <script type="text/javascript" src="<?php echo _path_public('js/core.js')?>"></script>
     <?php produce('headers')?>
     <?php produce('styles')?>
 </head>
@@ -114,6 +115,8 @@
 
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="<?php echo _path_public('js/global.js')?>"></script>
+    
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>

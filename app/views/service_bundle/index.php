@@ -8,7 +8,7 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered">
+				<table class="table table-bordered dataTable">
 					<thead>
 						<th>#</th>
 						<th>Code</th>
@@ -31,8 +31,13 @@
 								<td><?php echo $row->description?></td>
 								<td><?php echo $row->status?></td>
 								<td>
-									<a href="<?php echo _route('service-bundle:edit' , $row->id)?>">Edit</a>
-									<a href="<?php echo _route('service-bundle:show' , $row->id)?>">Show</a>
+									<?php
+										__([
+											btnView(_route('service-bundle:show' , $row->id)),
+											btnEdit(_route('service-bundle:edit' , $row->id)),
+											btnDelete(_route('service-bundle:delete' , $row->id))
+										]);
+									?>
 								</td>
 							</tr>
 						<?php endforeach?>

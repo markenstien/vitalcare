@@ -24,7 +24,12 @@ class="fas fa-list fa-sm text-white-50"></i> Add Specialties </a>
 							<td><?php echo $row->description?></td>
 							<td><?php echo $row->category?></td>
 							<td>
-								<a href="#">Show</a>
+								<?php
+									__([
+										btnEdit( _route('specialty:edit' , $row->id) ),
+										btnDelete( _route('specialty:delete' , $row->id) ),
+									])
+								?>
 							</td>
 						</tr>
 					<?php endforeach?>

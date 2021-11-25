@@ -8,7 +8,7 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 
@@ -18,7 +18,7 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 
@@ -28,7 +28,7 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 
@@ -39,10 +39,31 @@
 		'add' => $controller.'/add',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 
+	$controller = '/ServiceCartController';
+
+	$routes['service-cart'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'add' => $controller.'/add',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show'
+	];
+
+
+	$controller = '/AppointmentController';
+
+	$routes['appointment'] = [
+		'index' => $controller.'/index',
+		'create' => $controller.'/create',
+		'edit' => $controller.'/edit',
+		'add' => $controller.'/add',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show'
+	];
 	
 
 	$controller = '/SpecialtyController';
@@ -51,7 +72,7 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 	
@@ -61,7 +82,7 @@
 		'index' => $controller.'/index',
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
-		'delete' => $controller.'/delete',
+		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
 	

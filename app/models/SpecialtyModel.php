@@ -5,6 +5,7 @@
 		public $table = 'specialties';
 
 		protected $_fillables = [
+			'id',
 			'name',
 			'description',
 			'created_by',
@@ -19,11 +20,13 @@
 
 			if( !is_null($id) )
 			{
-				return parent::update($fillable_datas , $id);
+				$this->addMessage( parent::$MESSAGE_UPDATE_SUCCESS);
 
+				return parent::update($fillable_datas , $id);
 			}else
 			{
-				return parent::store($fillable_datas , $id);
+				$this->addMessage( parent::$MESSAGE_CREATE_SUCCESS);
+				return parent::store($fillable_datas);
 			}
 		}
 
@@ -50,7 +53,9 @@
 
 		public function validate($specialty_data)
 		{
-			if( parent::single(['name' => $specialty_data['name']]) )
+			$specialty = parent::single(['name' => $specialty_data['name']]);
+
+			if( $specialty && !isEqual( $specialty->id , $specialty_data['id'] ?? null))
 			{
 				$this->addError("Specialty {$specialty_data['name']} already exists");
 				return false;

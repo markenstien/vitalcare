@@ -28,8 +28,12 @@
 								<td><?php echo $row->email?></td>
 								<td><?php echo $row->user_type?></td>
 								<td>
-									<a href="#" class="btn btn-primary btn-sm">Show</a>
-									<a href="<?php echo _route('user:edit' , $row->id)?>" class="btn btn-primary btn-sm">Edit</a>
+									<?php
+										__([
+											btnView(_route('user:show')),
+											btnEdit(_route('user:edit' , $row->id))
+										])
+									?>
 								</td>
 							</tr>
 						<?php endforeach?>

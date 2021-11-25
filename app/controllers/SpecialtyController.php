@@ -48,4 +48,40 @@
 
 			return $this->view('specialty/create' , $data);
 		}
+
+		public function edit($id)
+		{
+			if( isSubmitted() )
+			{
+				$post = request()->posts();
+
+				$res = $this->model->save($post , $post['id']);
+
+				if(!$res) {
+					Flash::set( $this->model->getErrorString() , 'danger');
+					return request()->return();
+				}
+
+				Flash::set( $this->model->getMessageString() );
+				return redirect( _route('specialty:index') );
+			}
+
+			$specialty = $this->model->get($id);
+
+			$this->_form->init([
+				'url' => _route('specialty:edit' , $id)
+			]);
+
+			$this->_form->addId( $id );
+
+			$this->_form->setValueObject($specialty);
+
+			$data = [
+				'form' => $this->_form,
+				'title' => $specialty->name . '| Edit',
+				'specialty' => $specialty
+			];
+
+			return $this->view('specialty/edit' , $data);
+		}
 	}

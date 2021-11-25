@@ -1,4 +1,37 @@
 <?php   
+    
+    function btnView( $route  , $text = 'Show', $attributes  = null)
+    {
+        $attributes = keypair_to_str($attributes ?? []);
+        return <<<EOF
+            <a href="{$route}" class="btn btn-primary btn-sm" {$attributes}><i class='fa fa-eye'> </i> {$text} </a>
+        EOF;
+    }
+
+    function btnEdit( $route  , $text = 'Edit', $attributes  = null )
+    {
+        $attributes = keypair_to_str($attributes ?? []);
+        return <<<EOF
+            <a href="{$route}" class="btn btn-primary btn-sm" {$attributes}><i class='fa fa-edit'> </i> {$text}  </a>
+        EOF;
+    }
+
+    function btnDelete( $route  , $text = 'Delete', $attributes  = null )
+    {
+        $attributes = keypair_to_str($attributes ?? []);
+        return <<<EOF
+            <a href="{$route}" class="form-verify btn btn-danger btn-sm" {$attributes}><i class='fa fa-trash'> </i> {$text} </a>
+        EOF;
+    }
+
+    function btnList( $route  , $text = 'List', $attributes  = null )
+    {
+        $attributes = keypair_to_str($attributes ?? []);
+        return <<<EOF
+            <a href="{$route}" class="btn btn-primary btn-sm" {$attributes}><i class='fa fa-list'> </i> {$text}  </a>
+        EOF;
+    }
+
 
     function divider()
     {

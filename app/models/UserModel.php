@@ -5,7 +5,8 @@
 
 		public $table = 'users';
 
-		private $_fillables = [
+		protected $_fillables = [
+			'id',
 			'user_code' ,
 			'first_name',
 			'middle_name',

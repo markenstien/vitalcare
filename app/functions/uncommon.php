@@ -2,7 +2,14 @@
 
     function __($data)
     {
-        echo $data;
+        if( is_array($data) )
+        {
+            foreach($data as $d)
+                echo $d;
+        }else
+        {
+            echo $data;
+        }
     }
     
     function getRecentGameResetDate()

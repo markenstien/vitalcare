@@ -29,15 +29,15 @@
 			if( isSubmitted() )
 			{
 				$post = request()->posts();
-
+				
 				$res = $this->model->save($post);
+
+				Flash::set( $this->model->getMessageString() );
 
 				if(!$res) {
 					Flash::set( $this->model->getErrorString() , 'danger');
 					return request()->return();
 				}
-
-				Flash::set( $this->model->getMessageString() );
 
 				return redirect( _route('service-bundle-item:add' , $res));
 			}
@@ -85,6 +85,9 @@
 				'url' => _route('service-bundle:edit' , $id)
 			]);
 
+			/*
+			*Add price field after description
+			*/
 			$form->addAfter(
 				'description' , 
 				[
@@ -107,7 +110,8 @@
 			$data = [
 				'form' => $form,
 				'service_bundle' => $service_bundle,
-				'service_bundle_items' => $service_bundle_items
+				'service_bundle_items' => $service_bundle_items,
+				'title' => $service_bundle->name . ' | Edit '
 			];
 
 			return $this->view('service_bundle/edit' , $data);

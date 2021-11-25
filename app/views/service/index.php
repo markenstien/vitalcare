@@ -14,6 +14,8 @@
 						<th>#</th>
 						<th>Ref</th>
 						<th>Service</th>
+						<th>Price</th>
+						<th>Category</th>
 						<th>Descriotion</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -25,10 +27,17 @@
 								<td><?php echo ++$key?></td>
 								<td><?php echo $row->code?></td>
 								<td><?php echo $row->service?></td>
+								<td><?php echo $row->price?></td>
+								<td><?php echo $row->category?></td>
 								<td><?php echo $row->description?></td>
 								<td><?php echo $row->status?></td>
 								<td>
-									<a href="<?php echo _route('service:edit' , $row->id)?>" class="btn btn-primary "> Edit </a>
+									<?php
+										__([
+											btnEdit(_route('service:edit' , $row->id)),
+											btnDelete(_route('service:delete' , $row->id))
+										])
+									?>
 								</td>
 							</tr>
 						<?php endforeach?>

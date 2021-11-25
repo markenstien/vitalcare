@@ -131,4 +131,25 @@
 				err_restrict();
 			}
 		}
+
+		public function destroy($id)
+		{
+			if( isset( $this->model ))
+			{
+				$res = $this->model->deleteByKey([
+					'id' => $id
+				]);
+
+				if(!$res) {
+					Flash::set("Delete failed!");
+					return false;
+				}
+
+				Flash::set( "Deleted succesfully ");
+				return request()->return();
+			}else
+			{
+				echo die("PRIMARY MODEL not set , name your primary model as 'model'");
+			}
+		}
 	}

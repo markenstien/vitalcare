@@ -5,6 +5,10 @@
 
 		private $_error = [];
 		private static $instance = null;
+
+		protected static $MESSAGE_UPDATE_SUCCESS = "UPDATED SUCCESFULLY";
+		protected static $MESSAGE_CREATE_SUCCESS = "CREATED SUCCESFULLY";
+		protected static $MESSAGE_DELETE_SUCCESS = "DELETED SUCCESFULLY";
 		
 		
 		public function getFillablesOnly($datas)
@@ -60,6 +64,7 @@
 
 			return $this->dbHelper->delete(...$data);
 		}
+		
 		public function deleteByKey($keyValuePair = [])
 		{
 			if( empty($keyValuePair) )
@@ -248,19 +253,26 @@
 	{
 		$WHERE = '';
 
-		$counter = 0;
-		$increment = 0;
-
-		foreach($params as $key => $row) 
+		if( is_array($params) )
 		{
-			if($counter < $increment){
-				$WHERE .= ' AND ';
-				$counter++;
+			$counter = 0;
+			$increment = 0;
+
+			foreach($params as $key => $row) 
+			{
+				if($counter < $increment){
+					$WHERE .= ' AND ';
+					$counter++;
+				}
+
+				$WHERE .= " $key = '{$row}'";
+
+				$increment++;
 			}
 
-			$WHERE .= " $key = '{$row}'";
-
-			$increment++;
+		}else
+		{
+			$WHERE = $params;
 		}
 
 		return $WHERE;

@@ -29,7 +29,8 @@
 				return parent::update( $fillable_datas , $id);
 			}else
 			{
-				return parent::store( $fillable_datas);
+				$this->addMessage("Category Created!");
+				return parent::store( $fillable_datas );
 			}
 		}
 
