@@ -1,4 +1,3 @@
-
 $( document ).ready(function() 
 {
 	if( $('.form-verify') )

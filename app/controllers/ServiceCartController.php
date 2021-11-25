@@ -1,4 +1,7 @@
 <?php 
+	use Form\AppointmentForm;
+
+	load(['AppointmentForm'], APPROOT.DS.'form');
 
 	class ServiceCartController extends Controller
 	{
@@ -6,7 +9,8 @@
 
 		public function __construct()
 		{
-			$this->serviceCart = model('ServiceCartModel');
+			$this->model = model('ServiceCartModel');
+			$this->_form = new AppointmentForm();
 		}
 
 
@@ -19,15 +23,46 @@
 
 			$post = request()->posts();
 
-			$res = $this->serviceCart->add( $post );
+			$res = $this->model->add( $post );
 
 			if(!$res) {
-				Flash::set( $this->serviceCart->getErrorString() , 'danger');
+				Flash::set( $this->model->getErrorString() , 'danger');
 				return request()->return();
 			}
 
-			Flash::set( $this->serviceCart->getMessageString() );
+			Flash::set( $this->model->getMessageString() );
 
 			return redirect( _route('appointment:create') );
+		}
+
+		public function show($session)
+		{
+
+			$cart_token = $this->model->getAndCreateToken();
+
+			$cart_items = $this->model->getCart();
+
+			$cart_item_summary = $this->model->getCartSummary( $cart_items );
+
+			$this->_form->add([
+				'type' => 'hidden',
+				'value' => $cart_token,
+				'name'  => 'service_cart_id'
+			]);
+			
+			$this->_form->add([
+				'type' => 'hidden',
+				'value' => $cart_token,
+				'name'  => 'service_cart_id'
+			]);
+			
+			$data = [
+				'title' => 'Services Selected',
+				'cart_items' => $cart_items,
+				'cart_item_summary' => $cart_item_summary,
+				'form' => $this->_form
+			];
+
+			return $this->view('service_cart/show' , $data);
 		}
 	}

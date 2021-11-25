@@ -54,50 +54,79 @@
 
 		public function getAndCreateToken()
 		{
+			if( whoIs() )
+			{
+				$curCartSession = parent::single([
+					'user_id' => whoIs('id')
+				], '*' , ' id desc');
+				
+				Session::set('service-appointment-token' ,$curCartSession->session_token);
+			}
+
 			if(!Session::get('service-appointment-token') )
 				Session::set('service-appointment-token' , get_token_random_char(20));
 
 			return Session::get('service-appointment-token');
 		}
 
-
-		public function getCartSummary()
+		public function getToken()
 		{
-			$total = 0;
-			$count = 0;
+			return Session::get('service-appointment-token');
+		}
 
-			$cart_items = $this->getCart();
+		public function killToken()
+		{
+			Session::remove('service-appointment-token');
+		}
 
+
+		public function destroyCart()
+		{
+			$token = $this->getToken();
+
+			$this->killToken();
+
+			parent::delete([
+				'session_token' => $token
+			]);
+		}
+		public function getCartSummary( $cart_items = null)
+		{
+
+			if( is_null($cart_items) )
+				$cart_items = $this->getCart();
+			
 			$count = count($cart_items);
-
+			$bundle_total = 0;
+			$single_total = 0;
 			foreach($cart_items as $row)
 			{
 				if( isEqual($row['type'] , 'bundle') )
 				{
-					foreach($row['items'] as $r)
-					{
-						$total += $r->price;
-					}
+					$bundle_total += $row['price'];
 				}else
 				{
-					$total += floatval($row['item']->price);
+					$single_total += floatval($row['item']->price);
 				}
 			}
 
 			return [
-				'total_amount' => $total,
+				'total_amount' => $bundle_total + $single_total,
 				'total_items'  => $count
 			];
 		}
 
-		public function getCart()
+		public function getCart( $cart_session = null )
 		{
+
+			if( is_null($cart_session) )
+				$cart_session = $this->getAndCreateToken();
 
 			$this->bundle = model('ServiceBundleModel');
 			$this->service = model('ServiceModel');
 
 			$cart_items = parent::getAssoc('id' , [
-				'session_token' => $this->getAndCreateToken()
+				'session_token' => $cart_session
 			]);
 
 			return $this->formatCartItems($cart_items);
@@ -116,13 +145,16 @@
 					$data = [
 						'type' => 'bundle',
 						'bundle' => $bundle,
-						'items'  => $bundle->items
+						'items'  => $bundle->items,
+						'price'  => $bundle->public_price
 					];
 				}else
 				{
+					$item = $this->service->get($item->service_id);
 					$data = [
 						'type' => 'single',
-						'item' => $this->service->get($item->service_id)
+						'item' => $item,
+						'price' => $item->price
 					];
 				}
 

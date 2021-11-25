@@ -57,17 +57,20 @@
 			]);
 		}
 
-		public function addPriceCustom()
+		public function addPriceCustom( $params = [] )
 		{
-			$this->add([
+			$passParams = [
 				'type' => 'text',
 				'name' => 'price_custom',
 				'class' => 'form-control',
 
 				'options' => [
 					'label' => 'Custom Price'
-				]
-			]);
+				],
+				'others' => $params['others'] ?? ''
+			];
+			
+			$this->add($passParams);
 		}
 
 		public function addDiscount()

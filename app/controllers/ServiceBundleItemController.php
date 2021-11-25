@@ -6,13 +6,13 @@
 		{
 			$this->bundle = model('ServiceBundleModel');
 			$this->service = model('ServiceModel');
-			$this->bundle_item = model('ServiceBundleItemModel');
+			$this->model = model('ServiceBundleItemModel');
 		}	
 
 
 		public function delete($id)
 		{
-			 $this->bundle_item->delete($id);
+			 $this->model->delete($id);
 
 			 return request()->return();
 		}
@@ -24,12 +24,12 @@
 			{
 				$post = request()->posts();
 
-				$res = $this->bundle_item->add($post['service_id'] , $post['bundle_id']);
+				$res = $this->model->add($post['service_id'] , $post['bundle_id']);
 
 				Flash::set("Service added to bundle");
 
 				if(!$res) 
-					Flash::set( $this->bundle_item->getErrorString() , 'danger');
+					Flash::set( $this->model->getErrorString() , 'danger');
 
 				return request()->return();
 
@@ -37,7 +37,7 @@
 
 			$bundle = $this->bundle->get($bundle_id);
 
-			$bundle_items = $this->bundle_item->getByBundle($bundle_id);
+			$bundle_items = $this->model->getByBundle($bundle_id);
 
 			$services = $this->service->getAll();
 

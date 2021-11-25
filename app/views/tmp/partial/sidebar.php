@@ -41,6 +41,24 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('appointment:index')?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Appointments</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('bill:index')?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Bills</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('payment:index')?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Payments</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>

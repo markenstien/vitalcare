@@ -9,6 +9,7 @@
 			$this->service_bundle = model('ServiceBundleModel');
 			$this->category = model('CategoryModel');
 			$this->service_cart_model = model('ServiceCartModel');
+			$this->model = model('AppointmentModel');
 		}
 
 		public function index()
@@ -16,13 +17,35 @@
 			/*
 			*select service that you want
 			*/
+			$data = [
+				'title' => 'Appointments',
+				'appointments' => $this->model->getAssoc('id')
+			];
+
+			return $this->view('appointment/index' , $data);
+		}
 
 
+		public function createWithBill()
+		{
+			if( isSubmitted() )
+			{
+				$post = request()->posts();
+
+				$res = $this->model->createWithBill( $post );
+
+				if(!$res) 
+				{
+					Flash::set( $this->model->getErrorString()) ;
+					return request()->return();
+				}
+
+				return redirect( _route('bill:show' , $this->model->bill_id) );
+			}
 		}
 
 		public function create()
-		{
-
+		{	
 			if( isset($_GET['btn_filter']) )
 			{	
 				$rq  = request()->inputs();
@@ -83,5 +106,18 @@
 			];
 
 			return $this->view('appointment/create' , $data);
+		}
+
+
+		public function show($id)
+		{
+			$appointment = $this->model->getComplete($id);
+
+			$data = [
+				'appointment' => $appointment,
+				'title' => '#'.$appointment->reference. ' | Appointment',
+			];
+			
+			return $this->view('appointment/show' , $data);
 		}
 	}

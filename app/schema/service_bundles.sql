@@ -12,3 +12,6 @@ create table service_bundles(
 	created_by int(10),
 	created_at timestamp default now()
 );
+
+alter table service_bundles add column 
+	category_id int(10) not null;

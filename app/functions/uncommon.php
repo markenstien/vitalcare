@@ -69,7 +69,7 @@
                 return $user->$prop;            
         } 
 
-        return $user;
+        return $user ?? '';
 	}
 
 

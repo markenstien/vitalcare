@@ -1,0 +1,42 @@
+<?php build('content')?>
+	<div class="card">
+		<?php Flash::show()?>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered dataTable">
+					<thead>
+						<th>#</th>
+						<th>Reference</th>
+						<th>Guest</th>
+						<th>Date</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Action</th>
+					</thead>
+
+					<tbody>
+						<?php foreach( $appointments as $key => $appointment) :?>
+							<tr>
+								<td><?php echo ++$key?></td>
+								<td><?php echo $appointment->reference?></td>
+								<td><?php echo $appointment->guest_name?></td>
+								<td><?php echo $appointment->date?></td>
+								<td><?php echo $appointment->guest_email?></td>
+								<td><?php echo $appointment->guest_phone?></td>
+								<td>
+									<?php
+										__([
+											btnView(_route('appointment:show' , $appointment->id)),
+											btnEdit(_route('appointment:edit' , $appointment->id)),
+										]);
+									?>
+								</td>
+							</tr>
+						<?php endforeach?>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+<?php endbuild()?>
+<?php loadTo()?>

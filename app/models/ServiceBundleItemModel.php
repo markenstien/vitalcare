@@ -52,11 +52,11 @@
 		public function getByBundle($bundle_id)
 		{
 			$this->db->query(
-				"SELECT sbi.* , ss.service , ss.code , 
-					ss.price , ss.is_visible,
-					ss.created_by ,cat.category, 
+				"SELECT sbi.* , ss.service , ss.code , ss.description ,
+					ss.price , ss.is_visible, ss.status as status,
+					ss.created_by ,cat.category as category, 
 					cat.description as cat_description,
-					sbi.id as id
+					sbi.id as id , ss.id as service_id
 
 					FROM {$this->table} as sbi
 

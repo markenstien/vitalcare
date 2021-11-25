@@ -1,4 +1,4 @@
-drop table service_appointments;
+drop table service_cart;
 create table service_cart(
 	id int(10) not null primary key auto_increment,
 	session_token varchar(50),

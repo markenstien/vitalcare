@@ -138,13 +138,10 @@
 				<div>
 					<h4> <i class="fas fa-shopping-cart"></i> Basket <?php echo $cart_summary['total_items']?></h4>
 					<div>Total : <?php echo $cart_summary['total_amount']?></div>
-					<a href="#">Go to Basket</a>
+					<a href="<?php echo _route('service-cart:show' , $service_cart_model->getAndCreateToken())?>">Go to Basket</a>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="card">
-		<div class="card-body"></div>
 	</div>
 <?php endbuild()?>
 

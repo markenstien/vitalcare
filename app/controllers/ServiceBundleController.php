@@ -119,14 +119,26 @@
 
 		public function show($id)
 		{
-			$service_bundle = $this->model->get($id);
+			$service_bundle = $this->model->getWithItems($id);
 
 
 			$data = [
 				'title' => $service_bundle->name,
-				'service_bundle' => $service_bundle
+				'service_bundle' => $service_bundle,
+				'services'  => $service_bundle->items
 			];
 
 			return $this->view('service_bundle/show' , $data);
+		}
+
+
+		public function removeCustomPrice( $id )
+		{
+			$this->model->update([
+				'price_custom' => 0
+			] , $id );
+
+			Flash::set( " Custom price removed !");
+			return request()->return();
 		}
 	}

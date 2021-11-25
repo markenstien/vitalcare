@@ -29,7 +29,8 @@
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
-		'show'   => $controller.'/show'
+		'show'   => $controller.'/show',
+		'removeCustomPrice' => $controller.'/removeCustomPrice'
 	];
 
 	$controller = '/ServiceBundleItemController';
@@ -57,6 +58,30 @@
 	$controller = '/AppointmentController';
 
 	$routes['appointment'] = [
+		'index' => $controller.'/index',
+		'create' => $controller.'/create',
+		'createWithBill' => $controller.'/createWithBill',
+		'edit' => $controller.'/edit',
+		'add' => $controller.'/add',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show'
+	];
+
+	$controller = '/BillController';
+
+	$routes['bill'] = [
+		'index' => $controller.'/index',
+		'create' => $controller.'/create',
+		'edit' => $controller.'/edit',
+		'add' => $controller.'/add',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show',
+		'fetchFrame'   => $controller.'/fetchFrame',
+	];
+
+	$controller = '/PaymentController';
+
+	$routes['payment'] = [
 		'index' => $controller.'/index',
 		'create' => $controller.'/create',
 		'edit' => $controller.'/edit',

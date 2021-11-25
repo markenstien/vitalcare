@@ -7,7 +7,17 @@
 <?php build('content')?>
 	<div class="col-md-7">
 		<div class="card">
+			<div class="card-header">
+				<a href="<?php echo _route('service-bundle:show' , $service_bundle->id)?>">Back</a>
+			</div>
 			<div class="card-body">
+
+				<?php if( $service_bundle->price_custom != 0) :?>
+					<div class="panel">
+						<a href="<?php echo _route('service-bundle:removeCustomPrice' , $service_bundle->id)?>">Remove Custom Price</a>
+					</div>
+				<?php endif?>
+				
 				<?php __( $form->getForm() )?>
 			<div>
 		</div>

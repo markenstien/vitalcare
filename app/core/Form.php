@@ -5,16 +5,16 @@
 
 	abstract class Form
 	{
-		private $_form = null;
+		protected $_form = null;
 
-		private $_form_param = [];
+		protected $_form_param = [];
 
-		private $_method = 'post';
-		private $_url = '';
+		protected $_method = 'post';
+		protected $_url = '';
 
-		private $_form_head = [];
+		protected $_form_head = [];
 
-		private $_items = [];
+		protected $_items = [];
 		protected $name = 'CORE_FORM';
 
 

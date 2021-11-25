@@ -18,7 +18,7 @@
             define('DBPASS' , '');
             define('DBNAME' , 'vitalcare');
 
-            define('BASECONTROLLER' , 'HomeController');
+            define('BASECONTROLLER' , 'AppointmentController');
             define('BASEMETHOD' , 'index');
 
             ini_set('display_errors', 1);
@@ -66,7 +66,7 @@
             define('DBPASS' , 'xjiR&]ccqs&]');
             define('DBNAME' , 'arthsobx_vitalcare');
 
-            define('BASECONTROLLER' , 'HomeController');
+            define('BASECONTROLLER' , 'AppointmentController');
             define('BASEMETHOD' , 'index');
         break;
     }
