@@ -38,7 +38,8 @@
 			if( !is_null($id) )
 			{
 				return parent::update($fillable_datas , $id);
-			}else{
+			}else
+			{
 				$fillable_datas['user_code'] = $this->generateCode($user_data['user_type']);
 				return parent::store($fillable_datas);
 			}
@@ -82,7 +83,32 @@
 
 		public function create($user_data)
 		{
+
+			//check muna if doctor
+			$is_doctor = isEqual($user_data['user_type'] , 'doctor');
+
+
+			if( $is_doctor )
+			{
+				//load doctormodel
+				$this->doctor_model = model('DoctorModel');
+
+				$is_doctor_lincensed_valid = $this->doctor_model->validateLicensedNumber($user_data['license_number']);
+
+				if(!$is_doctor_lincensed_valid){
+					$this->addError( $this->doctor_model->getErrorString() );
+					return false;
+				}
+			}
+
 			$res = $this->save($user_data);
+
+
+			if($res && $is_doctor)
+				$this->doctor_model->save([
+					'license_number' => $user_data['license_number'],
+					'user_id'       => $res
+				]);
 
 			if(!$res) {
 				$this->addError("Unable to create user");
@@ -145,7 +171,53 @@
 
 			$last_id = $this->last()->id ?? 000;
 
-			return $pfix.get_token_random_char(4).$last_id;
-			
+			return strtoupper($pfix.get_token_random_char(4).$last_id);
 		}
+
+
+		public function authenticate($email , $password)
+		{
+			$errors = [];
+
+			$user = parent::single(['email' => $email]);
+
+			if(!$user) {
+				$errors[] = " Email '{$email}' does not exists in any account";
+			}
+
+			if(!isEqual($user->password ?? '' , $password)){
+				$errors[] = " Incorrect Password ";
+			}
+
+			if(!empty($errors)){
+				$this->addError( implode(',', $errors));
+				return false;
+			}
+
+			return $this->startAuth($user->id);
+		}
+
+		/*
+		*can be used to reset and start auth
+		*/
+		public function startAuth($id)
+		{
+			$user = parent::get($id);
+
+			if(!$user){
+				$this->addError("Auth cannot be started!");
+				return false;
+			}
+
+			$auth = null;
+
+			while( is_null($auth) )
+			{
+				Session::set('auth' , $user);
+				$auth = Session::get('auth');
+			}
+
+			return $auth;
+		}
+
 	}

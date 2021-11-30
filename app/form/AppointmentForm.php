@@ -9,7 +9,7 @@
 	{
 
 		public function __construct()
-		{
+		{	
 			parent::__construct();
 
 			$this->init([
@@ -32,6 +32,7 @@
 				'type' => 'date',
 				'name' => 'date',
 				'class' => 'form-control',
+				'required' => true,
 				'options' => [
 					'label' => 'Date'
 				]
@@ -44,6 +45,7 @@
 				'type' => 'text',
 				'name' => 'guest_name',
 				'class' => 'form-control',
+				'required' => true,
 				'options' => [
 					'label' => 'Full Name'
 				]
@@ -56,6 +58,7 @@
 				'type' => 'email',
 				'name' => 'guest_email',
 				'class' => 'form-control',
+				'required' => true,
 				'options' => [
 					'label' => 'Email'
 				]
@@ -68,6 +71,7 @@
 				'type' => 'number',
 				'name' => 'guest_phone',
 				'class' => 'form-control',
+				'required' => true,
 				'options' => [
 					'label' => 'Phone Number'
 				]
@@ -99,7 +103,7 @@
 				'options' => [
 					'label' => 'Status',
 					'option_values' => [
-						'pending', 'arrived', 'cancelled'
+						'pending', 'arrived', 'cancelled','scheduled'
 					]
 				]
 			]);

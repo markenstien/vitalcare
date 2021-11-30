@@ -33,6 +33,46 @@
     }
 
 
+    function anchor( $route , $type = 'edit' , $text = null , $color = null)
+    {
+        $icon = 'edit';
+        $a_text = 'Edit';
+        $a_color = 'primary';
+
+        switch($type)
+        {
+            case 'delete':
+                $icon = 'trash';
+                $a_text = 'Delete';
+            break;
+            case 'edit':
+                $icon = 'edit';
+                $a_text = 'Edit';
+            break;
+
+            case 'view':
+                $icon = 'eye';
+                $a_text = 'Show';
+            break;
+
+            case 'create':
+                $icon = 'plus';
+                $a_text = 'Create';
+            break;
+        }
+
+        if( !is_null($text) )
+            $a_text = $text;
+
+        if( !is_null($color) )
+            $a_color = 'danger';
+
+        return <<<EOF
+            <a href="{$route}" class='text-{$a_color}'><i class='fa fa-{$icon}'> </i> {$a_text}  </a>
+        EOF;
+    }
+
+
     function divider()
     {
         print <<<EOF

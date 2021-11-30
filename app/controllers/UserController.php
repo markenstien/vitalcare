@@ -66,10 +66,16 @@
 			{
 				$post = request()->posts();
 
+				$res = $this->model->save($post , $post['id']);
 
-				dd($post);
-				
+				if($res) {
+					Flash::set( "User updated !");
+					return redirect( _route('user:show' , $post['id']));
+				}else{
+					Flash::set( $this->model->getErrorString() );
+				}
 			}
+
 			$user = $this->model->get($id);
 
 			$doc_form = new DoctorForm();
@@ -88,6 +94,43 @@
 			];
 
 			return $this->view('user/form' , $data);
+		}
+
+		public function show($id)
+		{
+			$user = $this->model->get($id);
+
+			$data = [
+				'user' => $user
+			];
+
+			switch( strtolower($user->user_type) )
+			{
+				case 'doctor':
+
+				$doctor_model = model('DoctorModel');
+
+				$prefix = $user->gender == 'male' ? 'DR.' : 'DRA';
+
+				$data['title']  = $prefix.'. '.$user->first_name . ' '.$user->last_name;
+
+				$data['doctor'] = $doctor_model->getByUser($user->id);
+
+				$data['doctor_specializations'] = [];
+				
+				return $this->view('user/doctor_view' , $data);
+				break;
+
+				case 'patient':
+					//patient
+				$this->view('user/patient_view' , $data);
+				break;
+
+				default:
+					//admin
+				$this->view('user/admin_view' , $data);
+				break;
+			}
 		}
 		
 	}

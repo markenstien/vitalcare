@@ -29,11 +29,25 @@
 				] , $payment_data['bill_id']);
 
 				$bill_model->killToken();
+
+				$this->addMessage("Payment saved");
+				return $payment_id;
 			}
+			$this->addError("Error to save payment!");
+			
+			return false;
 		}
 
 		public function getReference()
 		{
 			return strtoupper('PMT-'.get_token_random_char(7));
+		}
+
+
+		public function getByBill($bill_id)
+		{
+			return $this->getAssoc('id' , [
+				'bill_id' => $bill_id
+			]);
 		}
 	}

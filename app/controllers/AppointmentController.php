@@ -1,4 +1,7 @@
 <?php 	
+	use Form\AppointmentForm;
+
+	load(['AppointmentForm'] , APPROOT.DS.'form');
 
 	class AppointmentController extends Controller
 	{
@@ -10,6 +13,9 @@
 			$this->category = model('CategoryModel');
 			$this->service_cart_model = model('ServiceCartModel');
 			$this->model = model('AppointmentModel');
+
+
+			$this->_form = new AppointmentForm();
 		}
 
 		public function index()
@@ -19,7 +25,7 @@
 			*/
 			$data = [
 				'title' => 'Appointments',
-				'appointments' => $this->model->getAssoc('id')
+				'appointments' => $this->model->getDesc('id')
 			];
 
 			return $this->view('appointment/index' , $data);
@@ -36,9 +42,19 @@
 
 				if(!$res) 
 				{
-					Flash::set( $this->model->getErrorString()) ;
+					Flash::set( $this->model->getErrorString() , 'danger') ;
 					return request()->return();
 				}
+
+				//kill reservation
+
+				$this->service_cart_model->destroyCart();
+
+				Flash::set("Appointment Created");
+
+				if( isEqual($post['type'] , 'walk-in') )
+					return redirect( _route('appointment:show' , $res) );
+
 
 				return redirect( _route('bill:show' , $this->model->bill_id) );
 			}
@@ -109,14 +125,72 @@
 		}
 
 
+		public function edit($id)
+		{
+			if( isSubmitted() )
+			{
+				$post = request()->posts();
+
+				$res = $this->model->save($post , $post['id']);
+
+				if(!$res){
+					Flash::set( $this->model->getErrorString() , 'danger');
+				}else{
+					Flash::set("Appointment updated!");
+				}
+
+				return request()->return();
+			}
+
+			$appointment = $this->model->get($id);
+	
+			$form = $this->_form;
+
+			$form->init([
+				'url' => _route('appointment:edit' , $id)
+			]);
+
+			$form->setValueObject( $appointment );
+
+			$form->addId($id);
+			$form->customSubmit('Save Changes' , 'submit');
+
+			$data = [
+				'title' => 'Update Appointment',
+				'form'  => $form,
+				'appointment' => $appointment,
+				'bill'  => $this->model->getBill($id)
+			];
+
+			return $this->view('appointment/edit' , $data);
+		}
+
 		public function show($id)
 		{
 			$appointment = $this->model->getComplete($id);
 
+			$bill = $appointment->bill;
+
+			$is_paid = false;
+
+			if( $bill )
+			{
+				$this->bill_model = model('BillModel');
+
+				$payments = $this->bill_model->getPayments($bill->id);
+
+				$is_paid = isEqual($bill->payment_status , 'paid');
+			}
+
 			$data = [
 				'appointment' => $appointment,
 				'title' => '#'.$appointment->reference. ' | Appointment',
+				'bill'  => $bill,
+				'is_paid' => $is_paid
 			];
+
+			if( isset($payments) )
+				$data['payment'] = $payments[0] ?? false;
 			
 			return $this->view('appointment/show' , $data);
 		}

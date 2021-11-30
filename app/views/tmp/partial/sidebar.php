@@ -79,4 +79,10 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Specialties</span></a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('auth:logout')?>">
+            <i class="fas fa-fw fa-sign-out-alt"></i>
+            <span>Logout</span></a>
+    </li>
 </ul>

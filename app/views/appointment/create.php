@@ -136,9 +136,9 @@
 
 			<div class="col-md-2">
 				<div>
-					<h4> <i class="fas fa-shopping-cart"></i> Basket <?php echo $cart_summary['total_items']?></h4>
+					<h4> <i class="fas fa-shopping-cart"></i> Services Selected <?php echo $cart_summary['total_items']?></h4>
 					<div>Total : <?php echo $cart_summary['total_amount']?></div>
-					<a href="<?php echo _route('service-cart:show' , $service_cart_model->getAndCreateToken())?>">Go to Basket</a>
+					<a href="<?php echo _route('service-cart:show' , $service_cart_model->getAndCreateToken())?>">Go to Appointment Reservation</a>
 				</div>
 			</div>
 		</div>

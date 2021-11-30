@@ -33,7 +33,7 @@ $( document ).ready(function()
 		setTimeout( function()
 		{
 			$('.flash-alert').hide();
-		} , 2000);
+		} , 4000);
 	}
 
 	function copyStringToClipBoard(text)

@@ -6,3 +6,4 @@ create table doctors_specializations(
 	created_by int(10),
 	created_at timestamp default now()
 );
+

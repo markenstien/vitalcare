@@ -134,6 +134,8 @@
 
 		public function destroy($id)
 		{
+			$route = $_GET['route'] ?? null;
+
 			if( isset( $this->model ))
 			{
 				$res = $this->model->deleteByKey([
@@ -146,6 +148,8 @@
 				}
 
 				Flash::set( "Deleted succesfully ");
+				if( !is_null($route) )
+					return redirect( unseal($route) ); 
 				return request()->return();
 			}else
 			{

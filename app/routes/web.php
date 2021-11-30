@@ -12,6 +12,14 @@
 		'show'   => $controller.'/show'
 	];
 
+	$controller = '/AuthController';
+
+	$routes['auth'] = [
+		'login' => $controller.'/login',
+		'register' => $controller.'/register',
+		'logout' => $controller.'/logout',
+	];
+
 	$controller = '/ServiceController';
 
 	$routes['service'] = [
@@ -77,6 +85,7 @@
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
 		'fetchFrame'   => $controller.'/fetchFrame',
+		'payInCash'    => $controller.'/payInCash'
 	];
 
 	$controller = '/PaymentController';

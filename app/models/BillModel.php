@@ -49,6 +49,9 @@
 				return false;
 			}
 
+			$this->bill_item_model = model('BillItemModel');
+
+			$bill->items = $this->bill_item_model->getItemsByBill($bill->id);
 			$bill->payments = $this->getPayments($bill->id);
 
 			return $bill;
@@ -58,9 +61,8 @@
 		{
 			$payment = model('PaymentModel');
 
-			return $payment->getAssoc('id' , [
-				'bill_id' => $bill_id
-			]);
+			return $payment->getByBill($bill_id);
+			
 		}
 
 		/*
@@ -71,6 +73,14 @@
 		*bill_to_name , bill_to_email , bill_to_phone, 
 		*appoint_id
 		*/
+
+		public function getCartItems()
+		{
+			$this->service_cart_model = model('ServiceCartModel');
+			$cart_items = $this->service_cart_model->getCart();
+			return $cart_items;
+		}
+
 		public function createPullServiceCartItems($bill_data = null)
 		{
 			$this->service_cart_model = model('ServiceCartModel');
@@ -166,4 +176,40 @@
 
 			$service_cart_model->killToken();
 		}
+
+		public function payInCash($id , $payer_name = null)
+		{
+			$bill = parent::get($id);
+
+			if( isEqual($bill->payment_status , 'paid') )
+			{
+				$this->addError("Bill {$bill->reference} is already paid , payment failed.");
+				return false;
+			}
+
+			//load payment-model
+			$payment_model = model('PaymentModel');
+
+			$payment = $payment_model->create([
+				'amount' => $bill->total_amount,
+				'method' => 'cash',
+				'notes'  => 'payment by cash',
+				'created_by' => whoIs('id'),
+				'bill_id'   => $id,
+				'acc_name' => $payer_name
+			]);
+
+			if( $payment && $bill->appointment_id )
+			{
+			   $appointment_model = model('AppointmentModel');
+			   $appointment_model->updateStatus($bill->appointment_id , 'scheduled');
+			}
+
+			return $bill->id;
+		}
+
+		// public function checkBillIfPaid($bill_id)
+		// {
+
+		// }
 	}

@@ -11,7 +11,7 @@
 		{
 			$data = [
 				'title' => 'Payments',
-				'payments' => $this->payment->getAssoc('id')
+				'payments' => $this->payment->getDesc('id')
 			];
 
 			return $this->view('payment/index' , $data);

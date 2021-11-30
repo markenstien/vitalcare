@@ -30,7 +30,7 @@
 			$this->addBirthDay();
 			$this->addGender();
 
-			$this->addSubmit();
+			$this->addSubmit('');
 		}
 
 		public function initCreate()
@@ -259,7 +259,9 @@
 				'class' => 'btn btn-primary',
 				'attributes' => [
 					'id' => 'id_submit'
-				]
+				],
+
+				'value' => 'Save user'
 			]);
 		}
 	}

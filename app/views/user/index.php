@@ -30,7 +30,7 @@
 								<td>
 									<?php
 										__([
-											btnView(_route('user:show')),
+											btnView(_route('user:show' , $row->id)),
 											btnEdit(_route('user:edit' , $row->id))
 										])
 									?>

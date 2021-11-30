@@ -271,6 +271,11 @@
 			return $attributes;
 		}
 
+		public function setValue($name , $value)
+		{
+			$this->_items[$name]['value'] = $value;
+		}
+
 
 		public function setValueObject($object)
 		{

@@ -60,7 +60,7 @@
 					'user_id' => whoIs('id')
 				], '*' , ' id desc');
 				
-				Session::set('service-appointment-token' ,$curCartSession->session_token);
+				Session::set('service-appointment-token' ,$curCartSession->session_token ?? get_token_random_char(20));
 			}
 
 			if(!Session::get('service-appointment-token') )
@@ -83,10 +83,10 @@
 		public function destroyCart()
 		{
 			$token = $this->getToken();
-
+			
 			$this->killToken();
 
-			parent::delete([
+			return parent::deleteByKey([
 				'session_token' => $token
 			]);
 		}

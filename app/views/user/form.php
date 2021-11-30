@@ -124,8 +124,7 @@
 		
 	<?php __( $form->end() )?>
 <?php endbuild()?>
-
-<?php build('scripts')?>
-	<script type="text/javascript" src="<?php echo _path_public('js/user-logic.js')?>"></script>
-<?php endbuild()?>
+	<?php build('scripts')?>
+		<script type="text/javascript" src="<?php echo _path_public('js/user-logic.js')?>"></script>
+	<?php endbuild()?>
 <?php loadTo()?>

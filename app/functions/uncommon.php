@@ -1,5 +1,5 @@
 <?php
-
+    
     function __($data)
     {
         if( is_array($data) )
@@ -312,9 +312,14 @@
         }
     }
 
-    function auth()
+    function auth($key = null)
     {
-        return Auth::get();
+        $auth = Session::get('auth');
+
+        if(!$auth)
+            return false;
+
+        return is_null($key) ? $auth : $auth->$key;
     }
 
     function getRowObject($arrayObject , $property)

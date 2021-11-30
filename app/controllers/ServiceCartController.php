@@ -60,7 +60,8 @@
 				'title' => 'Services Selected',
 				'cart_items' => $cart_items,
 				'cart_item_summary' => $cart_item_summary,
-				'form' => $this->_form
+				'form' => $this->_form,
+				'auth' => auth()
 			];
 
 			return $this->view('service_cart/show' , $data);
