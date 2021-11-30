@@ -18,7 +18,7 @@
             define('DBPASS' , '');
             define('DBNAME' , 'vitalcare');
 
-            define('BASECONTROLLER' , 'AppointmentController');
+            define('BASECONTROLLER' , 'AuthController');
             define('BASEMETHOD' , 'index');
 
             ini_set('display_errors', 1);

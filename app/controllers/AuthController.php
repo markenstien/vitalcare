@@ -13,6 +13,11 @@
 			$this->_form = new UserForm();
 		}
 
+		public function index()
+		{
+			return $this->login();
+		}
+
 		public function login()
 		{
 			if( isSubmitted() )
