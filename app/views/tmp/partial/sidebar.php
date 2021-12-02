@@ -53,6 +53,13 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('session:index')?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Sessions</span></a>
+    </li>
+
+
+    <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('payment:index')?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Payments</span></a>

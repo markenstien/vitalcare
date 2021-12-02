@@ -55,8 +55,32 @@
 
 		public function getByUser($user_id)
 		{
-			return parent::single([
-				'user_id' => $user_id
-			]);
+			return $this->getAll([
+				'where' => [
+					'user_id' => $user_id
+				]
+			])[0] ?? false;
+		}
+
+		public function getAll( $params = [] )
+		{
+			$where = null;
+			$order = null;
+
+			if( isset($params['where']) )
+				$where = " WHERE ".$this->conditionConvert($params['where']) ;
+
+			if( isset($params['order']) )
+				$order = " ORDER BY ".$params['order'];
+
+			$this->db->query(
+				"SELECT user.* , doctor.* ,doctor.id as id
+					FROM {$this->table} as doctor
+					LEFT JOIN users as user 
+					ON user.id = doctor.user_id
+					{$where} {$order}"
+			);
+
+			return $this->db->resultSet();
 		}
 	}

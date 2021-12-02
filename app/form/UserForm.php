@@ -20,7 +20,7 @@
 			$this->addAddress();
 			$this->addPhoneNumber();
 			$this->addEmal();
-			$this->addUsername();
+			// $this->addUsername();
 			$this->addPassword();
 			$this->addUserType();
 			$this->addProfile();
@@ -37,7 +37,7 @@
 		{
 			$this->init([
 				'url' => _route('user:create'),
-				'enctype' => ''
+				'enctype' => true
 			]);
 		}
 		
@@ -242,7 +242,7 @@
 				'name' => 'profile',
 				'class' => 'form-control',
 				'options' => [
-					'label' => 'Profile',
+					'label' => 'Profile Picture',
 				],
 
 				'attributes' => [

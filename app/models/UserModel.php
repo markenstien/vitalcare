@@ -25,7 +25,6 @@
 			'updated_at'
 		];
 
-
 		public function save($user_data , $id = null)
 		{
 			$fillable_datas = $this->getFillablesOnly($user_data);
@@ -37,7 +36,16 @@
 
 			if( !is_null($id) )
 			{
-				return parent::update($fillable_datas , $id);
+				//change password also
+				if( empty($fillable_datas['password']) )
+					unset($fillable_datas['password']);
+
+				$res = parent::update($fillable_datas , $id);
+
+				if( isset($user_data['profile']) )
+					$this->uploadProfile($user_data['profile'] , $id);
+
+				return $res;
 			}else
 			{
 				$fillable_datas['user_code'] = $this->generateCode($user_data['user_type']);
@@ -81,7 +89,7 @@
 			return true;
 		}
 
-		public function create($user_data)
+		public function create($user_data , $profile = '')
 		{
 
 			//check muna if doctor
@@ -115,9 +123,42 @@
 				return false;
 			}
 
-			$this->addMessage("User {$user_data['first_name']} Created");
 
+			if(!empty($profile) )
+				$this->uploadProfile($profile , $res);
+
+			$this->addMessage("User {$user_data['first_name']} Created");
 			return $res;
+		}
+
+		public function uploadProfile($file_name , $id)
+		{
+			$is_empty = upload_empty($file_name);
+
+			if($is_empty){
+				$this->addError("No file attached upload profile failed!");
+				return false;
+			}
+
+			$upload = upload_image($file_name, PATH_UPLOAD);
+
+			if( !isEqual($upload['status'] , 'success') ){
+				$this->addError(implode(',' , $upload['result']['err']));
+				return false;
+			}
+
+			//save to profile
+
+			$res = $this->update([
+				'profile' => GET_PATH_UPLOAD.DS.$upload['result']['name']
+			] , $id);
+
+			if($res) {
+				$this->addMessage("Profile uploaded!");
+				return true;
+			}
+			$this->addError("UPLOAD PROFILE DATABASE ERROR");
+			return false;
 		}
 
 		public function update($user_data , $id)

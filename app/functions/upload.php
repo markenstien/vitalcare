@@ -54,6 +54,7 @@
             'csv' , 'xls' ,'xlsx' , 'csv' ,'pdf','docx'
         ];
     }
+    
     /**
      * @param fileName $_FILES global name
      * dir path
@@ -171,6 +172,7 @@
         $name = $uploaderImage->getName();
 
         $fullPath = $path.DS.$name;
+        
         return [
             'status' => 'success',
             'result' => [

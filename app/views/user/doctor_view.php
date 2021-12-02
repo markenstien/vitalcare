@@ -12,6 +12,15 @@
 								</td>
 							</tr>
 							<tr>
+								<td colspan="2">
+									<?php if($doctor->profile) :?>
+									<img src="<?php echo $doctor->profile?>" style="width: 100%;">
+									<?php else:?>
+										<label>No Profile Picture</label>
+									<?php endif?>
+								</td>
+							</tr>
+							<tr>
 								<td>Lincense Number</td>
 								<td><?php echo $doctor->license_number?></td>
 							</tr>
@@ -67,13 +76,6 @@
 								<td>Auth</td>
 								<td><?php echo $user->username?></td>
 							</tr>
-
-							<tr>
-								<td>Password</td>
-								<td><?php echo $user->email?></td>
-							</tr>
-
-
 						</table>
 					</div>
 				</div>

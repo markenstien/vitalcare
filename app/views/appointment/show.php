@@ -47,8 +47,14 @@
 					</div>
 				</div>
 
+				<!-- IF DOCTOR ACCOUNT IS LOGGED IN -->
+
+				<?php if( !isEqual($appointment->status , 'arrived') ):?>
+					<a href="<?php echo _route('session:create' , $appointment->id)?>" class="btn btn-danger"> Start Session Session</a>
+				<?php endif?>
+				<!-- -->
 				<!-- cash payment -->
-				<?php if(!$is_paid) :?>
+				<?php if(!$is_paid && $appointment->bill) :?>
 					<div class="card-body">
 						<h4 class="card-title">Bill</h4>
 						<?php
@@ -111,13 +117,20 @@
 				<?php endif?>
 			</div>
 		</div>
-		<?php if(!$is_paid) :?>
+		<?php if(!$appointment->bill) :?>
+			<div class="col-md-5">
+				<h4>No Bill</h4>
+			</div>
+		<?php endif?>
+		<?php if($appointment->bill && !$is_paid) :?>
 			<div class="col-md-5">
 				<h4>Pay by bank</h4>
 				<iframe src="<?php echo _route('bill:fetchFrame' , $appointment->bill->id)?>"
 						style="width: 100%; height: 100vh"></iframe>
 			</div>
-		<?php else:?>
+		<?php endif?>
+
+		<?php if($appointment->bill && $is_paid) :?>
 			<div class="col-md-5">
 				<h4>Bill</h4>
 				<iframe src="<?php echo _route('bill:fetchFrame' , $appointment->bill->id , ['type' => 'bill_only'])?>"

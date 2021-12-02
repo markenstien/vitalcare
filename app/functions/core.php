@@ -1,4 +1,20 @@
 <?php
+    
+    function _download_wrap($file_name , $path)
+    {
+        $path = seal(urlencode($path));
+
+        return _route('attachment:download' , null , [
+            'filename' => $file_name,
+            'path' => $path
+        ]);
+    }
+
+    function _download_unwrap($path)
+    {
+        return urldecode(unseal($path));
+    }
+
     function _errorWithPage( $params = [])
     {
         return die("YOU HAVE SOMERRORS");

@@ -90,7 +90,12 @@
 
 					<div class="card-body">
 						<?php if( $auth && isEqual($auth->user_type , 'patient')) :?>
-							<?php __( $form->start() )?>
+							<?php __( [$form->start() ] )?>
+
+								<?php
+									$form->add(['type' => 'hidden' , 'value' => $auth->id , 'name' => 'user_id']);
+									__( $form->get('user_id') );
+								?>
 								<div class="form-group">
 									<?php
 										__( $form->getRow('date',['value' => date('Y-m-d') ]));
@@ -99,19 +104,22 @@
 
 								<div class="form-group">
 									<?php
-										__( $form->getRow('guest_name',['value' => $auth->first_name .' '.$auth->last_name ]));
+										$form->setValue('guest_name' , $auth->first_name . ' ' . $auth->last_name);
+										__( $form->getRow('guest_name'));
 									?>
 								</div>
 
 								<div class="form-group">
 									<?php
-										__( $form->getRow('guest_email',['value' => $auth->email ]));
+										$form->setValue('guest_email' , $auth->email);
+										__( $form->getRow('guest_email'));
 									?>
 								</div>
 
 								<div class="form-group">
 									<?php
-										__( $form->getRow('guest_phone',['value' => $auth->phone_number ]));
+										$form->setValue('guest_phone' , $auth->phone_number);
+										__( $form->getRow('guest_phone'));
 									?>
 								</div>
 

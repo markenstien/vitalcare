@@ -1,7 +1,6 @@
 <?php
 	namespace Form;
-	load(['Form'] , CORE);
-
+	loadTo(['Form'] , CORE);
 	use Core\Form;
 
 	class ServiceForm extends Form 

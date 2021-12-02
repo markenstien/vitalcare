@@ -119,7 +119,27 @@
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show'
 	];
+
+	$controller = '/SessionController';
+
+	$routes['session'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'show'   => $controller.'/show'
+	];
 	
+	$controller = '/AttachmentController';
+
+	$routes['attachment'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show'
+	];
 
 	return $routes;
 ?>

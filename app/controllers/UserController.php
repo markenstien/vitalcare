@@ -33,7 +33,7 @@
 			{
 				$post = request()->posts();
 
-				$res = $this->model->create($post);
+				$res = $this->model->create($post , 'profile');
 
 				Flash::set( $this->model->getMessageString());
 
@@ -55,7 +55,7 @@
 				'doc_form' => $doc_form
 			];
 
-			return $this->view('user/form' , $data);
+			return $this->view('user/create_edit' , $data);
 		}
 
 
@@ -66,11 +66,13 @@
 			{
 				$post = request()->posts();
 
-				$res = $this->model->save($post , $post['id']);
+				$post['profile'] = 'profile';
+				
+				$res = $this->model->save($post , $id);
 
 				if($res) {
 					Flash::set( "User updated !");
-					return redirect( _route('user:show' , $post['id']));
+					return redirect( _route('user:show' , $id));
 				}else{
 					Flash::set( $this->model->getErrorString() );
 				}
@@ -93,7 +95,8 @@
 				'user'   => $user
 			];
 
-			return $this->view('user/form' , $data);
+
+			return $this->view('user/create_edit' , $data);
 		}
 
 		public function show($id)

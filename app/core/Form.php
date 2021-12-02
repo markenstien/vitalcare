@@ -183,9 +183,10 @@
 		public function getCol($name , $attributes = [])
 		{
 			$item = $this->getRaw($name);
-
-			if(!isset($item['label']))
+			
+			if( !isEqual($item['type']  , ['hidden' , 'submit']) && !isset($item['label'])){
 				echo die("Cannot create Column {$name} , No Label specified");
+			}
 
 			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
 			$form_input = $this->get($name ,$attributes['input'] ?? null);;
@@ -329,10 +330,10 @@
 			$html .= $this->start();
 
 			$items = $this->_items;
-			
+
 			foreach($items as $item) 
 			{
-				if( isEqual($item['type'] , 'submit') )
+				if( isEqual($item['type'] , ['submit' , 'hidden']) )
 				{
 					$btn = $this->get($item['name']);
 

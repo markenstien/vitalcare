@@ -101,7 +101,6 @@
 			$appointment->bill = $bill;
 
 			return $appointment;
-			
 		}
 
 

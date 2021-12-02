@@ -1,11 +1,13 @@
 <?php
-    abstract class UploaderHelper
-    {
+    class UploaderHelper
+    {   
+        protected $extensions;
         protected $errors = [];
 
-
-        public function __construct(){
+        public function __construct()
+        {
           $this->name = '';
+          $this->extensions = ['jpeg' , 'jpg' , 'png' , 'bitmap','csv' , 'xls' ,'xlsx' , 'csv' ,'pdf','docx'];
         }
 
 
@@ -84,7 +86,7 @@
                     return true;
 
                 $this->setErrors($isUploaded);
-                    return false;
+                return false;
             }else{
                 $msg = " Invalid Extension '{$this->ext}' allowed extensions(".implode(',' , $this->extensions).")";
                 $this->setErrors($msg);

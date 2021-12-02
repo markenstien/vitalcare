@@ -1,6 +1,20 @@
 <?php
+	use Form\AttachmentForm;
+	load(['AttachmentForm'] , APPROOT.DS.'form');
+
 	class Controller
-	{
+	{	
+
+		protected $_attachmentForm = null;
+
+		public function __construct()
+		{
+			if( is_null($this->_attachmentForm) )
+			{
+				$this->_attachmentForm = new AttachmentForm();
+			}
+		}
+
 		public function model($model)
 		{
 			$model = ucfirst($model);

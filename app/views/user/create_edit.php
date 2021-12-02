@@ -17,6 +17,12 @@
 					<div class="card-body">
 						<div class="form-group">
 							<?php
+								__( $form->getRow('profile') );
+							?>
+						</div>
+
+						<div class="form-group">
+							<?php
 								__( $form->getRow('first_name') );
 							?>
 						</div>
@@ -100,11 +106,6 @@
 										'autocomplete' => 'off'
 									]
 								]) );
-							?>
-						</div>
-						<div class="form-group">
-							<?php
-								__( $form->getRow('username') );
 							?>
 						</div>
 						<div class="form-group">
