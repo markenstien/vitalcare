@@ -42,8 +42,11 @@
 
 				$res = parent::update($fillable_datas , $id);
 
-				if( isset($user_data['profile']) )
-					$this->uploadProfile($user_data['profile'] , $id);
+				if( isset($user_data['profile']) ){
+					$this->uploadProfile('profile' , $id);
+					echo 'profile-uplaoded';
+					die();
+				}
 
 				return $res;
 			}else
@@ -141,7 +144,7 @@
 			}
 
 			$upload = upload_image($file_name, PATH_UPLOAD);
-
+			
 			if( !isEqual($upload['status'] , 'success') ){
 				$this->addError(implode(',' , $upload['result']['err']));
 				return false;
