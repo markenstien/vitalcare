@@ -4,7 +4,6 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-6">
-					<?php dump($session)?>
 					<div class="row">
 						<?php if(isset($session->patient_account) && $session->patient_account->profile) :?>
 						<div class="col-md-2"><img src="<?php echo $session->patient_account->profile?>" style="width: 70px; height: 70px;"></div>

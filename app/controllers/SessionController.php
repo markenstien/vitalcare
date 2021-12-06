@@ -130,7 +130,6 @@
 			if(!$session) 
 				echo die('session not found!');
 
-
 			$form = $this->_form;
 			$form->init([
 				'url' => _route('session:edit' , $id),
@@ -141,7 +140,6 @@
 			$form->addRemarks();
 
 			$form->setValue('remarks' , $session->remarks);
-
 			
 
 			$this->data['title'] = 'Patient Session';
@@ -154,7 +152,6 @@
 
 			$this->data['attachment_form'] = $this->_attachmentForm;
 
-			
 
 			$this->data['form'] = $form;
 

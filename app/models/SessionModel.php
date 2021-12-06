@@ -66,6 +66,7 @@
 			}
 
 			$doctor = $this->doctor_model->getByUser($session->doctor_id);
+
 			$session->doctor = $doctor;
 			$session->documents = $this->getDocuments( $id );
 
