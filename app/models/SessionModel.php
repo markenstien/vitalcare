@@ -27,7 +27,7 @@
 		public function create($session_data)
 		{
 			$fillable_datas = $this->getFillablesOnly($session_data);
-
+			
 			$res = parent::store($fillable_datas);
 
 			if(!$res){

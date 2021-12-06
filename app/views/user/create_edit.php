@@ -98,7 +98,8 @@
 							]) )?>
 						</div>
 
-						<div id="id_container_licensed_number" class="form-group">
+						<div id="id_container_licensed_number" class="form-group"
+						<?php echo !isEqual($user->user_type ?? null , 'doctor') ? 'style="display:none"' : ''?>>
 							<?php
 								__( $doc_form->getRow('license_number' , [
 									'input' => [

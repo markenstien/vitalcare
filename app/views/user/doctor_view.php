@@ -81,6 +81,57 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Specialties</h4>
+					<?php echo anchor(_route('doc-special:create' , $user->id) , 'Create' , 'Create')?>
+				</div>
+
+				<div class="card-body">
+					<?php foreach($doctor_specializations as $row):?>
+						<details>
+						  <summary><?php echo $row->name?></summary>
+						  <p><?php echo $row->description?></p>
+						</details>
+						<?php echo anchor(_route('doc-special:edit' , $row->id))?>
+						<?php echo anchor(_route('doc-special:delete' , $row->id) , 'delete')?>
+					<?php endforeach?>
+				</div>
+			</div>
+
+			<?php divider()?>
+
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">Sessions</h4>
+					<?php echo anchor(_route('session:create' , $user->id) , 'Create' , 'Create')?>
+				</div>
+
+				<div class="card-body">
+					<table class="table table-bordered dataTable">
+						<thead>
+							<th>Doctor</th>
+							<th>Guest</th>
+							<th>Date</th>
+							<th>Action</th>
+						</thead>
+						<tbody>
+							<?php foreach($sessions as $row):?>
+								<tr>
+									<td><?php echo $row->first_name . ' '.$row->last_name?></td>
+									<td><?php echo $row->guest_name?></td>
+									<td><?php echo $row->date_created?></td>
+									<td><?php echo anchor( _route('session:show' , $row->id), 'view' , 'show')?></td>
+								</tr>
+							<?php endforeach?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
 	</div>
 <?php endbuild()?>
 <?php loadTo()?>
+

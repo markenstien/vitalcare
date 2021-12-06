@@ -89,12 +89,20 @@
 					</div>
 
 					<div class="card-body">
-						<?php if( $auth && isEqual($auth->user_type , 'patient')) :?>
+						<?php if(!$auth || isEqual($auth->user_type , 'patient')) :?>
 							<?php __( [$form->start() ] )?>
 
 								<?php
-									$form->add(['type' => 'hidden' , 'value' => $auth->id , 'name' => 'user_id']);
-									__( $form->get('user_id') );
+									if($auth){
+										$form->add(['type' => 'hidden' , 'value' => $auth->id , 'name' => 'user_id']);
+										__( $form->get('user_id') );
+
+
+										$full_name = $auth->first_name . ' ' . $auth->last_name;
+										$email = $auth->email;
+										$phone_number = $auth->phone_number;
+									}
+									
 								?>
 								<div class="form-group">
 									<?php
@@ -104,21 +112,21 @@
 
 								<div class="form-group">
 									<?php
-										$form->setValue('guest_name' , $auth->first_name . ' ' . $auth->last_name);
+										$form->setValue('guest_name' , $full_name ?? '');
 										__( $form->getRow('guest_name'));
 									?>
 								</div>
 
 								<div class="form-group">
 									<?php
-										$form->setValue('guest_email' , $auth->email);
+										$form->setValue('guest_email' , $email ?? '');
 										__( $form->getRow('guest_email'));
 									?>
 								</div>
 
 								<div class="form-group">
 									<?php
-										$form->setValue('guest_phone' , $auth->phone_number);
+										$form->setValue('guest_phone' , $phone_number ?? '');
 										__( $form->getRow('guest_phone'));
 									?>
 								</div>
@@ -128,6 +136,7 @@
 								</div>
 
 							<?php __( $form->end() )?>
+
 						<?php else:?>
 							<?php
 								$form->setValue('date' , date('Y-m-d'));

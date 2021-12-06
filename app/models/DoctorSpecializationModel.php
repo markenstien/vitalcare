@@ -2,21 +2,55 @@
 
 	class DoctorSpecializationModel extends Model
 	{
-		public $table = 'doctor_specializations';
+		public $table = 'doctors_specializations';
 
 		public $_fillables = [
-			'doctor_id' , 'specialty_id',
+			'id','doctor_id' , 'specialty_id',
 			'notes' , 'created_by'
 		];
 
+		public function getByUser($user_id)
+		{
+			return $this->getAll([
+				'where' => [
+					'doctor_id' => $user_id
+				]
+			]);
+		}
+
+		public function getAll($params = [])
+		{
+			$where = null;
+			$order = null;
+
+			if( isset($params['where']) )
+				$where = " WHERE " .$this->conditionConvert($params['where']);
+			if( isset($params['order']))
+				$order = " ORDER BY {$params['order']}" ;
+
+
+			$this->db->query(
+				"SELECT specialty.*,tblmain.*
+					FROM {$this->table} as tblmain
+					LEFT JOIN specialties as specialty 
+					on specialty.id = tblmain.specialty_id
+
+					{$where}{$order}"
+			);
+
+			return $this->db->resultSet();
+		}
+
 		public function save($specialty_data , $id = null)
 		{
+			$fillable_datas = $this->getFillablesOnly($specialty_data);
+
 			if( is_null($id) )
 			{
 				//check if specialty already in the user
 				$check_specialty_exists = parent::single([
-					'specialty_id' => $specialty_data['specialty_id'],
-					'doctor_id'    => $specialty_data['doctor_id']
+					'specialty_id' => $fillable_datas['specialty_id'],
+					'doctor_id'    => $fillable_datas['doctor_id']
 				]);
 
 				if( $check_specialty_exists )
@@ -25,10 +59,10 @@
 					return false;
 				}
 
-				return parent::store($specialty_data);
+				return parent::store($fillable_datas);
 			}else
 			{
-				return parent::update($specialty_data , $id);
+				return parent::update($fillable_datas , $id);
 			}
 		}
 

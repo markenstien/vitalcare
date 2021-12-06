@@ -8,10 +8,14 @@
 		}
 
 		public function index()
-		{
+		{	
+			$auth = auth();
+
+
+			$payments = $this->payment->getDesc('id');
 			$data = [
 				'title' => 'Payments',
-				'payments' => $this->payment->getDesc('id')
+				'payments' => $payments
 			];
 
 			return $this->view('payment/index' , $data);

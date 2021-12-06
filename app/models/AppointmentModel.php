@@ -32,8 +32,12 @@
 		public function create($appointment_data)
 		{	
 			extract($appointment_data);
-			//cerate appointment
 
+			if(!$this->checkAvailability($date)) 
+				return false;
+			/*check appointment date if in maximum*/
+
+			//cerate appointment
 			$reference = $this->generateRefence();
 
 			$appointment_id = parent::store([
@@ -61,6 +65,7 @@
 				$this->addError("Unable to save apointment no services selected ");
 				return false;
 			}
+
 			//check item firsts
 			$appointment_id = $this->create($appointment_data);
 
@@ -122,5 +127,38 @@
 			//create notification
 
 			return $update_payment_status;
+		}
+
+		public function getTotalAppointmentByDate($date)
+		{
+			$this->db->query(
+				"SELECT sum(id) as total 
+					FROM {$this->table}
+					WHERE date = '{$date}' 
+					AND status = 'scheduled'
+					AND type = 'online'
+					GROUP BY date"
+			);
+
+			return $this->db->single()->total ?? 0;
+		}
+
+		public function checkAvailability($date)
+		{
+			$schedule_model = model('ScheduleModel');
+
+			$total_person_reserved = $this->getTotalAppointmentByDate($date);
+
+			$day_name = date('l' , strtotime($date));
+
+			$date_by_name = $schedule_model->getByAppointmentByDay($day_name);
+
+			if( $date_by_name->max_visitor_count <= $total_person_reserved ){
+				$this->addError("Date {$date}($day_name) is already full , please schedule another day");
+				return false;
+			}else{
+				$this->addMessage("Date is available");
+				return true;
+			}
 		}
 	}

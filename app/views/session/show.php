@@ -4,6 +4,7 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="col-md-6">
+					<?php dump($session)?>
 					<div class="row">
 						<?php if(isset($session->patient_account) && $session->patient_account->profile) :?>
 						<div class="col-md-2"><img src="<?php echo $session->patient_account->profile?>" style="width: 70px; height: 70px;"></div>
@@ -37,7 +38,8 @@
 					<?php if( isset($session->patient_account)) :?>
 						<label>No Previous Record</label>
 					<?php else:?>
-						<a href="#">View Patient Records</a>
+
+						<a href="<?php echo _route('user:show' , $session->patient_account->user_id) ?>">View Patient Records</a>
 					<?php endif?>
 				</div>
 				<div class="col-md-6">

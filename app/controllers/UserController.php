@@ -1,7 +1,8 @@
 <?php
-	load(['UserForm' , 'DoctorForm'] , APPROOT.DS.'form');
+	load(['UserForm' , 'DoctorForm' , 'DoctorSpecializationForm'] , APPROOT.DS.'form');
 	use Form\UserForm;
 	use Form\DoctorForm;
+	use Form\DoctorSpecializationForm;
 
 
 	class UserController extends Controller
@@ -13,6 +14,8 @@
 			$this->_form = new UserForm('form_user');
 
 			$this->model = model('UserModel');
+			$this->session = model('SessionModel');
+			$this->appointment = model('AppointmentModel');
 		}
 
 		public function index()
@@ -86,6 +89,8 @@
 
 			$this->_form->addId($id);
 
+			$doc_form->setValue('license_number' , $user->license_number ?? 0);
+
 			$this->_form->setValueObject($user);
 
 			$data = [
@@ -94,7 +99,6 @@
 				'doc_form' => $doc_form,
 				'user'   => $user
 			];
-
 
 			return $this->view('user/create_edit' , $data);
 		}
@@ -113,19 +117,36 @@
 
 				$doctor_model = model('DoctorModel');
 
+				$doctor_specialization = model('DoctorSpecializationModel');
+
 				$prefix = $user->gender == 'male' ? 'DR.' : 'DRA';
 
 				$data['title']  = $prefix.'. '.$user->first_name . ' '.$user->last_name;
 
 				$data['doctor'] = $doctor_model->getByUser($user->id);
 
-				$data['doctor_specializations'] = [];
-				
+
+				$data['doctor_specializations'] = $doctor_specialization->getByUser($user->id);
+
+				$data['sessions'] = $this->session->getAll([
+					'where' => [
+						'doctor_id' => $user->id
+					]
+				]);
+
 				return $this->view('user/doctor_view' , $data);
 				break;
 
 				case 'patient':
-					//patient
+				
+				$data['appointments'] = $this->appointment->getDesc('id' , ['user_id' => $user->id]);
+				
+				$data['sessions'] = $this->session->getAll([
+					'where' => [
+						'user_id' => $user->id
+					]
+				]);
+
 				$this->view('user/patient_view' , $data);
 				break;
 

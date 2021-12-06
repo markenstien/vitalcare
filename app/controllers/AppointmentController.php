@@ -23,9 +23,19 @@
 			/*
 			*select service that you want
 			*/
+			$auth = auth();
+
+			if( isEqual($auth->user_type , 'patient') )
+			{
+				$appointments = $this->model->getDesc('id' , ['user_id' => $auth->id]);
+			}else
+			{
+				$appointments = $this->model->getDesc('id');
+			}
+
 			$data = [
 				'title' => 'Appointments',
-				'appointments' => $this->model->getDesc('id')
+				'appointments' => $appointments
 			];
 
 			return $this->view('appointment/index' , $data);
@@ -52,11 +62,15 @@
 
 				Flash::set("Appointment Created");
 
+				$auth = auth();
+
+				if( !$auth) 
+					return redirect( _route('bill:show' , $res) );
+
 				if( isEqual($post['type'] , 'walk-in') )
-					return redirect( _route('appointment:show' , $res) );
-
-
-				return redirect( _route('bill:show' , $this->model->bill_id) );
+					return redirect( _route('bill:show' , $res) );
+				
+				return redirect( _route('appointment:show' , $res) );	
 			}
 		}
 

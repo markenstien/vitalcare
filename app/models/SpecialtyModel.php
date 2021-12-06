@@ -41,7 +41,8 @@
 
 
 			$this->db->query(
-				"SELECT sp.* , cat.category as category 
+				"SELECT sp.* , cat.category as category ,
+					cat.cat_key
 					FROM {$this->table} as sp
 					LEFT JOIN categories as cat 
 					ON cat.id = sp.category_id

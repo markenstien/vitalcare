@@ -27,6 +27,8 @@
 
 		public function save($user_data , $id = null)
 		{
+			$user_id = $id;
+
 			$fillable_datas = $this->getFillablesOnly($user_data);
 
 			$validated = $this->validate($fillable_datas , $id );
@@ -44,16 +46,37 @@
 
 				if( isset($user_data['profile']) ){
 					$this->uploadProfile('profile' , $id);
-					echo 'profile-uplaoded';
-					die();
 				}
 
-				return $res;
+				$user_id = $id;
 			}else
 			{
 				$fillable_datas['user_code'] = $this->generateCode($user_data['user_type']);
-				return parent::store($fillable_datas);
+				$user_id = parent::store($fillable_datas);
 			}
+
+			$is_doctor = isEqual($user_data['user_type'] , 'doctor');
+
+			if( $is_doctor )
+			{
+				//load doctormodel
+				$this->doctor_model = model('DoctorModel');
+
+				$is_doctor_lincensed_valid = $this->doctor_model->validateLicensedNumber($user_data['license_number']);
+
+				if(!$is_doctor_lincensed_valid){
+					$this->addError( $this->doctor_model->getErrorString() );
+					return false;
+				}
+
+				$this->doctor_model->save([
+					'license_number' => $user_data['license_number'],
+					'user_id'        => $user_id
+				]);
+					
+			}
+
+			return $user_id;
 		}
 
 
@@ -95,31 +118,8 @@
 		public function create($user_data , $profile = '')
 		{
 
-			//check muna if doctor
-			$is_doctor = isEqual($user_data['user_type'] , 'doctor');
-
-
-			if( $is_doctor )
-			{
-				//load doctormodel
-				$this->doctor_model = model('DoctorModel');
-
-				$is_doctor_lincensed_valid = $this->doctor_model->validateLicensedNumber($user_data['license_number']);
-
-				if(!$is_doctor_lincensed_valid){
-					$this->addError( $this->doctor_model->getErrorString() );
-					return false;
-				}
-			}
-
 			$res = $this->save($user_data);
 
-
-			if($res && $is_doctor)
-				$this->doctor_model->save([
-					'license_number' => $user_data['license_number'],
-					'user_id'       => $res
-				]);
 
 			if(!$res) {
 				$this->addError("Unable to create user");
@@ -152,7 +152,7 @@
 
 			//save to profile
 
-			$res = $this->update([
+			$res = parent::update([
 				'profile' => GET_PATH_UPLOAD.DS.$upload['result']['name']
 			] , $id);
 
@@ -168,6 +168,9 @@
 		{
 			$res = $this->save($user_data , $id);
 
+			//check muna if doctor
+
+
 			if(!$res) {
 				$this->addError("Unable to create user");
 				return false;
@@ -176,6 +179,19 @@
 			$this->addMessage("User {$user_data['first_name']} has been updated!");
 
 			return true;
+		}
+
+		public function get($id)
+		{
+			$user = parent::get($id);
+
+			if( isEqual($user->user_type , 'doctor') )
+			{
+				$this->doctor = model('DoctorModel');
+				$user->license_number = $this->doctor->getByUser($id)->license_number ?? null;
+			}
+
+			return $user;
 		}
 
 		public function getByKey($column , $key , $order = null)

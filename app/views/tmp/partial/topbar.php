@@ -115,6 +115,16 @@
             </div>
         </li>
     </ul>
+
+    <?php else:?>
+    <ul class="navbar-nav ml-auto">
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link" href="<?php echo _route('auth:login')?>" aria-expanded="false">
+                <span class="text-primary">Login</span>
+            </a>
+        </li>
+    </ul>
     <?php endif?>
 </nav>
 <!-- End of Topbar -->

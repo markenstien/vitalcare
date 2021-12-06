@@ -49,12 +49,12 @@
 
 				<!-- IF DOCTOR ACCOUNT IS LOGGED IN -->
 
-				<?php if( !isEqual($appointment->status , 'arrived') ):?>
+				<?php if( !isEqual($appointment->status , 'arrived') && isEqual(auth('user_type') , ['admin' , 'doctor'])):?>
 					<a href="<?php echo _route('session:create' , $appointment->id)?>" class="btn btn-danger"> Start Session Session</a>
 				<?php endif?>
 				<!-- -->
 				<!-- cash payment -->
-				<?php if(!$is_paid && $appointment->bill) :?>
+				<?php if(!$is_paid && $appointment->bill && isEqual(auth('user_type') , ['admin' , 'doctor'])) :?>
 					<div class="card-body">
 						<h4 class="card-title">Bill</h4>
 						<?php

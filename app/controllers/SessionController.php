@@ -22,17 +22,32 @@
 
 		public function index()
 		{
+			$auth = auth();
+
 			$this->data['title'] = 'Sessions';
 
-			$this->data['sessions'] = $this->model->getAll([
-					'order' => 'session.id desc'
-				]
-			);
+			if( isEqual($auth->user_type , 'patient') )
+			{
+				$this->data['sessions'] = $this->model->getAll([
+						'order' => 'session.id desc',
+						'where' => [
+							'user_id' => $auth->id
+						]
+					]
+				);
+			}else
+			{
+				$this->data['sessions'] = $this->model->getAll([
+						'order' => 'session.id desc'
+					]
+				);
+			}
+			
 
 			return $this->view('session/index' , $this->data);
 		}
 
-		public function create( $appointment_id )
+		public function create( $appointment_id = null)
 		{
 			if( isSubmitted() )
 			{
@@ -74,12 +89,11 @@
 					'value' => $appointment->user_id
 				]);
 			}
-
-
 			$form->setValue('doctor_id' , auth('id'));
 			$form->setValue('guest_name' , $appointment->guest_name);
 			$form->setValue('guest_phone' , $appointment->guest_phone);
 			$form->setValue('guest_email' , $appointment->guest_email);
+			$form->setValue('user_id' , $appointment->user_id);
 
 			$form->customSubmit('Create Session');
 

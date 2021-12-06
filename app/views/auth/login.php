@@ -5,6 +5,8 @@
 			<div class="card">
 				<div class="card-header">
 					<h4 class="card-title">Login-Form</h4>
+
+					<a href="<?php echo _route('appointment:create')?>">Create Appointment</a>
 				</div>
 				<div class="card-body">
 					<?php 

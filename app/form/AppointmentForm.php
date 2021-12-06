@@ -21,7 +21,9 @@
 			$this->addGuestEmail();
 			$this->addGuestPhoneNumber();
 			$this->addType();
-			$this->addStatus();
+
+			if( isEqual(auth('user_type') , ['admin' , 'doctor']))
+				$this->addStatus();
 			
 			$this->customSubmit('Reserve');
 		}

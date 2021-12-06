@@ -141,5 +141,24 @@
 		'show'   => $controller.'/show'
 	];
 
+	$controller = '/ScheduleSettingController';
+
+	$routes['schedule'] = [
+		'index' => $controller.'/index',
+		'update' => $controller.'/update'
+	];
+
+	$controller = '/DoctorSpecializationController';
+
+	$routes['doc-special'] = [
+		'index' => $controller.'/index',
+		'edit' => $controller.'/edit',
+		'create' => $controller.'/create',
+		'delete' => $controller.'/destroy',
+		'download' => $controller.'/download',
+		'show'   => $controller.'/show'
+	];
+
+	
 	return $routes;
 ?>

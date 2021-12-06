@@ -1,4 +1,5 @@
 
+<?php $auth = auth()?>
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -14,12 +15,12 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+  <!--   <li class="nav-item">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
-
+ -->
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -28,29 +29,33 @@
         Main
     </div>
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo _route('user:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>User</span></a>
-    </li>   
+    <?php if(isEqual($auth->user_type , 'admin')):?>
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo _route('user:index')?>">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>User</span></a>
+        </li>   
 
-    <li class="nav-item">
-        <a class="nav-link" href="<?php echo _route('category:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Categories</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?php echo _route('category:index')?>">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Categories</span></a>
+        </li>
+    <?php endif?>
 
+    
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('appointment:index')?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Appointments</span></a>
     </li>
-
+    <?php if(isEqual($auth->user_type , 'admin')):?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('bill:index')?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Bills</span></a>
     </li>
+    <?php endif?>
 
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('session:index')?>">
@@ -58,13 +63,14 @@
             <span>Sessions</span></a>
     </li>
 
-
+    <?php if(isEqual($auth->user_type , ['admin' , 'doctor'])):?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('payment:index')?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Payments</span></a>
     </li>
-
+    <?php endif?>
+    <?php if(isEqual($auth->user_type , 'admin')):?>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -79,13 +85,23 @@
             </div>
         </div>
     </li>
+    <?php endif?>
     
-    
+    <?php if(isEqual($auth->user_type , ['admin' , 'doctor'])):?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('specialty:index')?>">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Specialties</span></a>
     </li>
+    <?php endif?>
+
+    <?php if(isEqual($auth->user_type , 'admin')):?>
+    <li class="nav-item">
+        <a class="nav-link" href="<?php echo _route('schedule:update')?>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Schedule Settings</span></a>
+    </li>
+    <?php endif?>
 
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('auth:logout')?>">

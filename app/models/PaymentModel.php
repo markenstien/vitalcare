@@ -13,6 +13,7 @@
 
 		public function create($payment_data)
 		{
+
 			$payment_data['reference'] = $this->getReference();
 
 			$fillable_datas = $this->getFillablesOnly($payment_data);
@@ -29,6 +30,14 @@
 				] , $payment_data['bill_id']);
 
 				$bill_model->killToken();
+
+				$bill = $bill_model->get($payment_data['bill_id']);
+
+				if( $bill->appointment_id )
+				{
+					$appointment_model = model('AppointmentModel');
+					$appointment_model->updateStatus($bill->appointment_id , 'scheduled');
+				}
 
 				$this->addMessage("Payment saved");
 				return $payment_id;

@@ -78,7 +78,8 @@
 					FROM {$this->table} as doctor
 					LEFT JOIN users as user 
 					ON user.id = doctor.user_id
-					{$where} {$order}"
+					{$where} {$order}
+					GROUP BY user_id"
 			);
 
 			return $this->db->resultSet();
