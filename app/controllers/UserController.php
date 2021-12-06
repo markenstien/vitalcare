@@ -126,7 +126,7 @@
 				$data['doctor'] = $doctor_model->getByUser($user->id);
 
 
-				$data['doctor_specializations'] = $doctor_specialization->getByUser($user->id);
+			$data['doctor_specializations'] = $doctor_specialization->getByUser($user->id);
 
 				$data['sessions'] = $this->session->getAll([
 					'where' => [

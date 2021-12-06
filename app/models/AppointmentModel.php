@@ -135,7 +135,7 @@
 				"SELECT sum(id) as total 
 					FROM {$this->table}
 					WHERE date = '{$date}' 
-					AND status = 'scheduled'
+					AND status not in ('pending' , 'cancelled')
 					AND type = 'online'
 					GROUP BY date"
 			);
