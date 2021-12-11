@@ -1,4 +1,4 @@
-drop table system_notifications;
+drop table if exists system_notifications;
 create table system_notifications(
 	id int(10) not null primary key auto_increment,
 	message text,
@@ -11,7 +11,7 @@ create table system_notifications(
 	updated_at timestamp default now() ON UPDATE now()
 );
 
-drop table system_notification_recipients;
+drop table if exists system_notification_recipients;
 create table system_notification_recipients(
 	id int(10) not null primary key auto_increment,
 	notification_id int(10) ,
