@@ -13,3 +13,8 @@ create table appointments(
 	guest_phone varchar(100),
 	created_at timestamp default now()
 );
+
+
+alter table appointments
+	add column start_time time after date ,
+	add column end_time time after date

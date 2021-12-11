@@ -15,6 +15,7 @@
 						<th>Reference</th>
 						<th>Guest</th>
 						<th>Date</th>
+						<th>Type</th>
 						<th>Status</th>
 						<th>Email</th>
 						<th>Phone</th>
@@ -28,6 +29,7 @@
 								<td><?php echo $appointment->reference?></td>
 								<td><?php echo $appointment->guest_name?></td>
 								<td><?php echo $appointment->date?></td>
+								<td><?php echo $appointment->type?></td>
 								<td><?php echo $appointment->status?></td>
 								<td><?php echo $appointment->guest_email?></td>
 								<td><?php echo $appointment->guest_phone?></td>

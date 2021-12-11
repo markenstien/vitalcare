@@ -101,6 +101,12 @@
 			{
 				$fillable_datas['code'] = $this->generateCode( $fillable_datas['service'] );
 
+				$first_name = model('UserModel');
+
+				$first_name = $first_name->fetchSigleSingleColumn( ['first_name'] , ['id' => whoIs('id')]);
+
+				_notify_operations( "{$first_name} added a service {$fillable_datas['service']}");
+
 				$this->addMessage("Service {$fillable_datas['service']} has been created");
 				return parent::store($fillable_datas);
 			}

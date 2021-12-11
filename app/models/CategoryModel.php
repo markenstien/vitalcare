@@ -29,6 +29,9 @@
 				return parent::update( $fillable_datas , $id);
 			}else
 			{
+
+				_notify_operations("Category {$category_data['category']} has been created");
+
 				$this->addMessage("Category Created!");
 				return parent::store( $fillable_datas );
 			}

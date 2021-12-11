@@ -39,9 +39,24 @@
 					$appointment_model->updateStatus($bill->appointment_id , 'scheduled');
 				}
 
+				/*
+				*if there's a user on bill
+				*/
+				if( $bill->user_id )
+				{
+					$this->user_model = model('UserModel');
+
+					$user_first_name = $this->user_model->fetchSigleSingleColumn(['first_name' , '' , 'last_name'] , ['id' => $bill_id->user_id]);
+
+					_notify("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference" , [$bill->user_id]);
+				}
+
+				_notify_operations( $user_first_name ?? 'Guest' . ' ' .'submitted a payment of '.$fillable_datas['amount'] );
+
 				$this->addMessage("Payment saved");
 				return $payment_id;
 			}
+
 			$this->addError("Error to save payment!");
 			
 			return false;

@@ -182,6 +182,20 @@
 			]);
 		}
 
+
+		public function addDoctorRecommendation()
+		{
+			$this->add([
+				'name' => 'doctor_recommendations',
+				'type' => 'textarea',
+				'class' => 'form-control',
+				'options' => [
+					'label' => 'Doctors Recommendation'
+				]
+			]);
+		}
+		
+
 		public function addUser($id)
 		{
 			$this->add([

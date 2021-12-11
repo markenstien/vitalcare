@@ -14,3 +14,7 @@ create table sessions(
 	appointment_id int(10) comment 'nullable',
 	created_at timestamp default now()
 );
+
+
+alter table sessions
+	add column doctor_recommendations text after remarks;

@@ -131,11 +131,13 @@
 				echo die('session not found!');
 
 			$form = $this->_form;
+
 			$form->init([
 				'url' => _route('session:edit' , $id),
 				'method' => 'post'
 			]);
 			
+			$form->addDoctorRecommendation();
 			//addremarks
 			$form->addRemarks();
 

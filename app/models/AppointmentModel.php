@@ -6,6 +6,8 @@
 
 		public $_fillables = [
 			'reference',
+			'start_time',
+			'end_time',
 			'date',
 			'user_id',
 			'type',
@@ -51,6 +53,15 @@
 				'guest_phone' => $guest_phone,
 				'status'      => $status ?? 'pending'
 			]);
+
+			if( $appointment_id )
+			{
+				if( !is_null($user_id) ){
+					_notify("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id]);
+				}
+				
+				_notify_operations("Appointment to vitalcare is submitted .#{$reference} appointment reference");
+			}
 
 			return $appointment_id;
 		}

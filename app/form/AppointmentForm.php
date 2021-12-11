@@ -17,6 +17,7 @@
 			]);
 
 			$this->addDate();
+			$this->addStartTime();
 			$this->addGuestName();
 			$this->addGuestEmail();
 			$this->addGuestPhoneNumber();
@@ -91,6 +92,19 @@
 					'option_values' => [
 						'online' , 'walk-in'
 					]
+				]
+			]);
+		}
+
+		public function addStartTime()
+		{
+			$this->add([
+				'type' => 'time',
+				'name' => 'start_time',
+				'class' => 'form-control',
+				'required' => true,
+				'options' => [
+					'label' => 'Time of Arrival'
 				]
 			]);
 		}

@@ -85,9 +85,19 @@
 		<div class="card-footer">
 			<div class="row">
 				<div class="col-md-8">
-					<h4>Doctors Remarks</h4>
-					<p><?php echo $session->remarks?></p>
-					<a href="#" data-toggle="modal" data-target="#modelDoctorRemarks"><?php echo empty($session->remarks) ? 'Add Remarks' : 'Edit Remarks'?></a>
+					<section>
+						<h4>Doctors Remarks</h4>
+						<p><?php echo $session->remarks?></p>
+						<a href="#" data-toggle="modal" data-target="#modelDoctorRemarks"><?php echo empty($session->remarks) ? 'Add Remarks' : 'Edit Remarks'?></a>
+					</section>
+
+					<?php divider()?>
+						
+					</section>
+						<h4>Doctors Recommendations</h4>
+						<p><?php echo $session->doctor_recommendations?></p>
+						<a href="#" data-toggle="modal" data-target="#modeldoctorRecommendations"><?php echo empty($session->doctor_recommendations) ? 'Add Recommendations' : 'Edit Recommendations'?></a>
+					</section>
 				</div>
 
 				<div class="col-md-4">
@@ -190,6 +200,37 @@
 	      	<div class="form-group">
 	      		<?php
 	      			__( $form->getCol('remarks') );
+	      		?>
+	      	</div>
+
+	      	<?php __( $form->get('submit') ) ?>
+
+	      	<?php __( $form->end() )?>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="modeldoctorRecommendations" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Doctor Recommendations</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	<?php
+	      		__([
+	      			$form->start(),
+	      			$form->addId($session->id)
+	      		])
+	      	?>
+
+	      	<div class="form-group">
+	      		<?php
+	      			__( $form->getCol('doctor_recommendations') );
 	      		?>
 	      	</div>
 

@@ -123,6 +123,13 @@
 			{
 				$fillable_datas['code'] = $this->generateCode( $service_bundle_data['name'] );
 				$this->addMessage( parent::$MESSAGE_CREATE_SUCCESS );
+
+				$user_model = model('UserModel');
+
+				$user_name = $user_model->fetchSigleSingleColumn(['first_name'] , ['id' => whoIs('id')]);
+
+				_notify_operations("{$user_name} Created a new bundle {$service_bundle_data['name']}#{$fillable_datas['code']}");
+
 				return parent::store($fillable_datas);
 			}
 

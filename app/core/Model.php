@@ -138,6 +138,30 @@
 			return $this->dbHelper->single(...$data);
 		}
 
+		public function fetchSigleSingleColumn($column , $condition)
+		{
+			$item = $this->single($condition);
+
+			if(!$item)
+				return '';
+
+			//means concat
+			if(is_array($column))
+			{
+				$ret_val = '';
+
+				foreach($column as $key => $col){
+					if($key > 0)
+						$ret_val .= ' ';
+					$ret_val .= $item->$col;
+				}
+
+				return $ret_val;
+			}
+
+			return $item->$column;
+		}
+
 		public function getAssoc($field , $where = null)
 	    {
 			if(is_array($where))

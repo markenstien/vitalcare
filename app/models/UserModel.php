@@ -205,9 +205,12 @@
 		}
 
 
-		public function getAll($params = [] )
+		public function getAll($params = null )
 		{
-			return parent::getAssoc('first_name' ,);
+			if( !is_null($params) )
+				$params = $this->conditionConvert($params['where']);
+			
+			return parent::getAssoc('first_name' , $params);
 		}
 
 		public function generateCode($user_type)

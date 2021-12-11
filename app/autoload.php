@@ -21,6 +21,7 @@
 		'string_helper',	
 		'database',
 		'modules',
+		'notify',
 		'email_tmp'
 	]);
 
