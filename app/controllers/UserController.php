@@ -156,5 +156,31 @@
 				break;
 			}
 		}
-		
+
+		public function sendAuth()
+		{
+			if( isSubmitted() )
+			{
+				$post = request()->posts();
+
+
+				$user = $this->model->get( $post['user_id'] );
+
+				$recipients = explode(',' , $post['recipients']);
+
+				$content = pull_view('tmp/emails/user_auth_email_view_tmp' , [
+					'user' => $user,
+					'system_name' => COMPANY_NAME
+				]);
+
+				_mail($recipients , "User Auth" , $content);
+
+				_notify_operations("Account details has been sent, recipients {$post['recipients']} ");
+
+				Flash::set("Auth has been sent");
+
+				return request()->return();
+			}
+		}
+			
 	}

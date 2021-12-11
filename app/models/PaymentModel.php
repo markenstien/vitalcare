@@ -48,7 +48,10 @@
 
 					$user_first_name = $this->user_model->fetchSigleSingleColumn(['first_name' , '' , 'last_name'] , ['id' => $bill_id->user_id]);
 
-					_notify("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference" , [$bill->user_id]);
+					$user_email = $this->user_model->fetchSigleSingleColumn($email, ['id' => $bill_id->user_id]);
+
+					_notify_include_email("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference", [$bill->user_id],[$user_email]);
+
 				}
 
 				_notify_operations( $user_first_name ?? 'Guest' . ' ' .'submitted a payment of '.$fillable_datas['amount'] );

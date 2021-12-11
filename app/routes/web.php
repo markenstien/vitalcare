@@ -9,7 +9,8 @@
 		'edit' => $controller.'/edit',
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
-		'show'   => $controller.'/show'
+		'show'   => $controller.'/show',
+		'sendAuth' => $controller.'/sendAuth'
 	];
 
 	$controller = '/AuthController';

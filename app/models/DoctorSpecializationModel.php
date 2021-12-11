@@ -30,7 +30,7 @@
 
 
 			$this->db->query(
-				"SELECT specialty.*,tblmain.*
+				"SELECT specialty.*,tblmain.* ,tblmain.notes as item_notes
 					FROM {$this->table} as tblmain
 					LEFT JOIN specialties as specialty 
 					on specialty.id = tblmain.specialty_id

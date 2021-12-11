@@ -38,6 +38,25 @@
         }
     }
 
+    function pull_view($viewPath , $data = null)
+    {
+        $viewPath = convertDotToDS($viewPath);
+
+        if(isset($_GLOBALS['data']))
+        {
+            $globalData = $GLOBALS['data'];
+            extract($globalData);
+        }
+
+        if( !is_null($data) )
+            extract($data);
+
+
+        $viewPath = convertDotToDS($viewPath);
+
+        return require_once VIEWS.DS.$viewPath.'.php';
+    }
+    
 
     function grab($viewPath , $data = null)
     {

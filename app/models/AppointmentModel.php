@@ -39,25 +39,26 @@
 				return false;
 			/*check appointment date if in maximum*/
 
-			//cerate appointment
-			$reference = $this->generateRefence();
+			$appointment_data['reference'] = $this->generateRefence();
+			$appointment_data['user_id'] = $user_id ?? '';
+			$appointment_data['type'] = $type ?? 'online';
+			$appointment_data['remark'] = $remark ?? '';
+			$appointment_data['status'] = $status ?? 'pending';
 
-			$appointment_id = parent::store([
-				'reference' => $reference,
-				'date' => $date,
-				'user_id' => $user_id ?? null,
-				'type'    => $type ?? 'online',
-				'remark'  => $remark ?? '',
-				'guest_name' => $guest_name,
-				'guest_email' => $guest_email,
-				'guest_phone' => $guest_phone,
-				'status'      => $status ?? 'pending'
-			]);
+			$_fillables = $this->getFillablesOnly($appointment_data);
+			$appointment_id = parent::store($_fillables);
 
 			if( $appointment_id )
 			{
-				if( !is_null($user_id) ){
-					_notify("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id]);
+				if( !is_null($user_id) )
+				{
+
+					$user_model = model('UserModel');
+					$email = $user_model->fetchSigleSingleColumn('email' , ['id' => $user_id]);
+
+					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email]);
+
+					_notify();
 				}
 				
 				_notify_operations("Appointment to vitalcare is submitted .#{$reference} appointment reference");

@@ -68,7 +68,7 @@
 					return redirect( _route('bill:show' , $res) );
 
 				if( isEqual($post['type'] , 'walk-in') )
-					return redirect( _route('bill:show' , $res) );
+					return redirect( _route('appointment:show' , $res) );
 				
 				return redirect( _route('appointment:show' , $res) );	
 			}

@@ -76,6 +76,21 @@
 
 	function _notify_include_email( $message , $recipientIds , $emails  , $attributes = [])
 	{
+		__notify($message , $recipientIds , $attributes);
 
+		$content = pull_view('tmp/emails/email_text_only_tmp' , [
+			'text' => $message,
+		]);
+
+
+		foreach($emails as $email)
+		{
+			$email = trim($email);
+
+			if( empty($email) )
+				continue;
+			
+			_mail($email , "Vital Care" , $content);
+		}
 	}
 ?>

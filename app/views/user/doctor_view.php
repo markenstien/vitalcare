@@ -93,7 +93,8 @@
 					<?php foreach($doctor_specializations as $row):?>
 						<details>
 						  <summary><?php echo $row->name?></summary>
-						  <p><?php echo $row->description?></p>
+						  <p>Skill Description : <?php echo $row->description?></p>
+						  <p>Doctor Notes : <?php echo $row->notes?></p>
 						</details>
 						<?php echo anchor(_route('doc-special:edit' , $row->id))?>
 						<?php echo anchor(_route('doc-special:delete' , $row->id) , 'delete')?>

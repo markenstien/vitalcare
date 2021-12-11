@@ -7,12 +7,12 @@
     define('DEFAULT_REPLY_TO' , '');
 
     const MAILER_AUTH = [
-        // 'username' => '',
-        // 'password' => '',
-        // 'host'     => '',
-        // 'name'     => '',
-        // 'replyTo'  => '',
-        // 'replyToName' => ''
+        'username' => 'super@vitalcare.sbs',
+        'password' => 'c;6*CBlLMFFz',
+        'host'     => 'vitalcare.sbs',
+        'name'     => 'vitalcare',
+        'replyTo'  => 'super@vitalcare.sbs',
+        'replyToName' => 'vitalcare'
     ];
 
     const ITEXMO = [
@@ -43,13 +43,10 @@
 
     define('COMPANY_NAME' , 'VITAL CARE');
 
-    define('KEY_WORDS' , '#############');
+    define('KEY_WORDS' , 'VITALCARE,DIAGNOSTIC');
 
 
-    define('DESCRIPTION' , '#############');
+    define('DESCRIPTION' , 'VITALCARE,DIAGNOSTIC');
 
     define('AUTHOR' , SITE_NAME);
-
-
-    
 ?>

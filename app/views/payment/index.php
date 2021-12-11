@@ -21,7 +21,7 @@
 							<tr>
 								<td><?php echo ++$key?></td>
 								<td><?php echo $row->reference?></td>
-								<td><?php echo $row->amount?></td>
+								<td><?php echo amountHTML($row->amount)?></td>
 								<td><?php echo $row->method?></td>
 								<td><?php echo $row->acc_name?></td>
 								<td><?php echo $row->external_reference?></td>

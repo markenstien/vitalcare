@@ -15,6 +15,10 @@
 								<td>Date</td>
 								<td><?php echo $appointment->date?></td>
 							</tr>
+							<tr>
+								<td>Arrival Time</td>
+								<td><?php echo $appointment->start_time?></td>
+							</tr>
 
 							<tr>
 								<td>Type</td>

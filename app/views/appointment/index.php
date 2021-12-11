@@ -15,6 +15,7 @@
 						<th>Reference</th>
 						<th>Guest</th>
 						<th>Date</th>
+						<th>Time</th>
 						<th>Type</th>
 						<th>Status</th>
 						<th>Email</th>
@@ -29,6 +30,7 @@
 								<td><?php echo $appointment->reference?></td>
 								<td><?php echo $appointment->guest_name?></td>
 								<td><?php echo $appointment->date?></td>
+								<td><?php echo is_null($appointment->start_time) ? 'Not Available on previous version' : $appointment->start_time?></td>
 								<td><?php echo $appointment->type?></td>
 								<td><?php echo $appointment->status?></td>
 								<td><?php echo $appointment->guest_email?></td>

@@ -197,9 +197,9 @@
 		$amountHTML = number_format($amount , 2);
 
 		if($amount < 0) {
-			return "<span style='color:red;'> <strong> {$amountHTML} </strong> </span>";
+			return "<span style='color:red;'> {$amountHTML} </span>";
 		}else{
-			return "<span style='color:green'> <strong> {$amountHTML} </strong> </span>";
+			return "<span style='color:green'>{$amountHTML} </span>";
 		}
     }
 

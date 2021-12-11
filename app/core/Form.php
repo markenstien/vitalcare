@@ -5,6 +5,9 @@
 
 	abstract class Form
 	{
+
+		protected $_type = 'crud';
+
 		protected $_form = null;
 
 		protected $_form_param = [];
@@ -30,15 +33,14 @@
 
 			$form_param['method'] = strtoupper($params['method'] ?? $this->_method);
 			$form_param['url'] = $params['url'] ?? $this->_url;
-
-			if( isset($params['enctype']))
-				$form_param['enctype'] = 'multipart/form-data';
+			$form_param['enctype'] = 'multipart/form-data';
 
 
 			if( isset($params['attributes']) )
 				$form_param = array_merge( $form_param , $params['attributes']);
 
 			$this->_form_param = $form_param;
+
 		}
 
 		public function start()
@@ -51,6 +53,20 @@
 			return $this->_form->close();
 		}
 
+		public function remove($name)
+		{
+			$items = $this->_items;
+
+			foreach( $items as $key => $item )
+			{
+				if( $item['name'] == $name ){
+					unset($items[$key]);
+				}
+			}
+
+			$this->_items = $items;
+		}
+
 		public function add($params = [])
 		{
 			
@@ -59,10 +75,11 @@
 			$value = $params['value'] ?? '';
 			$classAndAddtributes = $this->mergeAddtributeAndClass($params);
 			$option_values = $params['options']['option_values'] ?? [];
-			$label = $params['options']['label'] ?? null;
 
 			//for password only
 			$preserve = $params['preserve'] ?? false;
+
+			$label   = $params['options']['label'] ?? '';
 
 			$item = [
 				'name' => $name,
@@ -70,7 +87,6 @@
 				'value' => $value,
 				'attributes' => $classAndAddtributes,
 				'option_values' => $option_values,
-				'label'  => $label,
 				'preserve' => $preserve
 			];
 
@@ -79,12 +95,18 @@
 				if( $params['required'] === FALSE) 
 				{
 					unset($params['required']);
-				}else{
-					$label .= " * ";
+				}else
+				{
+					if( isset($params['options']['label'])){
+						$label .= " * ";
+					}
+					
 					$item['required'] = TRUE;
 				}
 					
 			}
+
+			$item['label'] = $label;
 
 			$this->_items[$name] = $item;
 		}
@@ -118,6 +140,11 @@
 			$this->_items = $new_order;
 		}
 
+		public function checkField($name)
+		{
+			return $this->_items[$name] ?? false;
+		}
+
 		public function getRaw($name , $attributes = [])
 		{
 			$item = $this->_items[$name] ?? false;
@@ -141,14 +168,21 @@
 			];
 		}
 
+		/*
+		*add attributes
+		*/
 		public function get($name , $attributes = [])
 		{	
 			$item = $this->getRaw($name);
 
-			//check if has attribute changes
-			if( isset($attributes) )
-				$item = $this->overwriteParams($item , $attributes);
+			/*
+			*so we can overwrite the input attrivutes
+			*temporary to strictly apply required atrribute
+			*/
+			if( empty($attributes) )
+				$attributes = $item['attributes'];
 
+			$item = $this->overwriteParams($item , $attributes);
 			switch( $item['type'] )
 			{
 				case 'text':
@@ -189,11 +223,21 @@
 			}
 
 			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
-			$form_input = $this->get($name ,$attributes['input'] ?? null);;
+			$form_input = $this->get($name ,$attributes);
 			return <<<EOF
-				{$form_label}
-				{$form_input}
+				<div> 
+					{$form_label}
+					{$form_input}
+				</div>
 			EOF;
+		}
+
+
+		public function label($name)
+		{
+			$item = $this->getRaw($name);
+			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
+			return $form_label;
 		}
 
 		/**
@@ -205,15 +249,15 @@
 			if( !isEqual($item['type']  , ['hidden' , 'submit']) && !isset($item['label'])){
 				echo die("Cannot create Column {$name} , No Label specified");
 			}
-				
 
 			$form_label = $this->_form->label($item['label'] , $item['attributes']['id'] ?? '#');
-			$form_input = $this->get($name ,$attributes['input'] ?? null);
+
+			$form_input = $this->get($name ,$attributes);
 			
 			return <<<EOF
-				<div class='row'>
-					<div class='col-md-2'>{$form_label}</div>
-					<div class='col-md-10'>{$form_input}</div>
+				<div class='row mb-2'>
+					<div class='col-md-3'>{$form_label}</div>
+					<div class='col-md-9'>{$form_input}</div>
 				</div>
 			EOF;
 		}
@@ -240,8 +284,8 @@
 
 		private function overwriteParams($attributes , $new_attributes)
 		{
-			
 
+			
 			foreach($new_attributes as $new_attr_key => $new_attr)
 			{
 				if( $new_attr_key == 'required')
@@ -267,9 +311,20 @@
 				}
 			}
 
+			if( isset($attributes['required']) )
+			{
+				//add required to attributes as item
+				$attributes['attributes']['required'] = $attributes['required'];
+				unset($attributes['required']);
+			}
 			
-
 			return $attributes;
+		}
+
+
+		public function setType( $type )
+		{
+			$this->_type = $type;
 		}
 
 		public function setValue($name , $value)
@@ -348,7 +403,7 @@
 					$label_input_bundle = $this->getRow($item['name']);
 
 					$html .= <<<EOF
-						<div class='form-group'>
+						<div class='form-group mb-2'>
 							{$label_input_bundle}
 						</div>
 					EOF;

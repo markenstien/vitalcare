@@ -27,7 +27,7 @@
 								<td><?php echo ++$key?></td>
 								<td><?php echo $row->code?></td>
 								<td><?php echo $row->service?></td>
-								<td><?php echo $row->price?></td>
+								<td><?php echo amountHTML($row->price)?></td>
 								<td><?php echo $row->category?></td>
 								<td><?php echo $row->description?></td>
 								<td><?php echo $row->status?></td>

@@ -49,8 +49,12 @@
 
 			$doctor_name  = $user_model->fetchSigleSingleColumn('first_name' , ['id' => $session_data['doctor_id']]);
 			$patient_name = $user_model->fetchSigleSingleColumn('first_name' , ['id' => $session_data['user_id']]);
+			$user_email = $user_model->fetchSigleSingleColumn('email' , ['id' => $session_data['user_id']]);
 
 			_notify('DRA/DR. '.$doctor_name ." . started a session with you" , [$session_data['user_id']]);
+
+			_notify_include_email('DRA/DR. '.$doctor_name ." . started a session with you" , [$session_data['user_id']],[$user_email]);
+
 			_notify_operations(" 'DRA/DR. '.{$doctor_name} started a session with {$patient_name}");
 
 

@@ -26,7 +26,7 @@
 								<td><?php echo ++$key?></td>
 								<td><?php echo $row->code?></td>
 								<td><?php echo $row->name?></td>
-								<td><?php echo $row->public_price?></td>
+								<td><?php echo amountHTML($row->public_price)?></td>
 								<td><?php echo $row->discount?></td>
 								<td><?php echo $row->description?></td>
 								<td><?php echo $row->status?></td>

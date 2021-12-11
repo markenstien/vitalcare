@@ -22,7 +22,7 @@
 				 		<tr>
 				 			<td><?php echo $service_bundle->code?></td>
 				 			<td><?php echo $service_bundle->name?></td>
-				 			<td><?php echo $service_bundle->public_price?></td>
+				 			<td><?php echo amountHTML($service_bundle->public_price)?></td>
 				 			<td><?php echo $service_bundle->discount?></td>
 				 			<td><?php echo $service_bundle->description?></td>
 				 		</tr>
@@ -63,7 +63,7 @@
 								<td><?php echo ++$key?></td>
 								<td><?php echo $row->code?></td>
 								<td><?php echo $row->service?></td>
-								<td><?php echo $row->price?></td>
+								<td><?php echo amountHTML($row->price)?></td>
 								<td><?php echo $row->category?></td>
 								<td><?php echo $row->description?></td>
 								<td><?php echo $row->status?></td>

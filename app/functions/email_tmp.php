@@ -22,15 +22,17 @@
     
     function wEmailFooter()
     {
-        $logo = $image = URL.DS.'public/logo.jpg';
+        // $logo = $image = URL.DS.'public/logo.jpg';
 
         $COMPANY_NAME = COMPANY_NAME;
 
         $footer = <<<EOF
             <div class="footer" style="text-align: center;padding: 15px;">
                 <h3 style="margin: 10px 0px;">{$COMPANY_NAME}</h3>
-                <div>
-                    <img src="{$logo}" style="width:150px">
+                <div style="color:#041C32">
+                    <small>
+                        <i>The content of this email is confidential and intended for the recipient specified in message only. It is strictly forbidden to share any part of this message with any third party, without a written consent of the sender. If you received this message by mistake, please reply to this message and follow with its deletion, so that we can ensure such a mistake does not occur in the future.</i>
+                    </small>
                 </div>
             </div>
         EOF;
@@ -51,13 +53,11 @@
 
     function wEmailComplete($content)
     {
-        $header = wEmailHeader();
         $content = wEmailBody($content);
         $footer = wEmailFooter();
 
 
-        $bodyComplete = $header;
-        $bodyComplete .= $content;
+        $bodyComplete = $content;
         $bodyComplete .= $footer;
 
         $empCompleteHTML = wEmailWrapper( $bodyComplete );
