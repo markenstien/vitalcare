@@ -14,6 +14,7 @@
 		$href = $attributes['href'] ?? '';
 
 
+		$message = str_escape($val , $message);
 		$db->query(
 			"INSERT INTO system_notifications(message , icon , color , heading , subtext , href)
 				VALUES('{$message}' , '{$icon}' , '{$color}' , '{$heading}' , '{$subtext}' , '{$href}')"
@@ -74,14 +75,14 @@
 	}
 
 
-	function _notify_include_email( $message , $recipientIds , $emails  , $attributes = [])
+	function _notify_email( $message , $emails , $attributes = [] )
 	{
-		__notify($message , $recipientIds , $attributes);
-
 		$content = pull_view('tmp/emails/email_text_only_tmp' , [
 			'text' => $message,
 		]);
-
+		
+		if( empty($emails) )
+			return false;
 
 		foreach($emails as $email)
 		{
@@ -92,5 +93,17 @@
 			
 			_mail($email , "Vital Care" , $content);
 		}
+	}
+
+
+	function _notify_include_email( $message , $recipientIds , $emails  , $attributes = [])
+	{
+		__notify($message , $recipientIds , $attributes);
+
+		$content = pull_view('tmp/emails/email_text_only_tmp' , [
+			'text' => $message,
+		]);
+
+		_notify_email($message , $emails);
 	}
 ?>

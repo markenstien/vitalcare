@@ -80,8 +80,8 @@
 		}
 
 
-		private function validate($user_data , $id = null)
-		{
+		private function validate(&$user_data , $id = null)
+		{	
 			if(isset($user_data['email']))
 			{
 				$is_exist = $this->getByKey('email' , $user_data['email'])[0] ?? '';
@@ -104,10 +104,17 @@
 
 			if(isset($user_data['phone_number']))
 			{
+				$user_data['phone_number'] = str_to_mobile($user_data['phone_number']);
+
+				if( !is_mobile_number($user_data['phone_number']) ){
+					$this->addError("Invalid Phone Number {$user_data['phone_number']}");
+					return false;
+				}
+
 				$is_exist = $this->getByKey('phone_number' , $user_data['phone_number'])[0] ?? '';
 
 				if( $is_exist && !isEqual($is_exist->id , $id) ){
-					$this->addError("Phonne Number {$user_data['email']} already used");
+					$this->addError("Phonne Number {$user_data['phone_number']} already used");
 					return false;
 				}
 			}

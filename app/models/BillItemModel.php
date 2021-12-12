@@ -10,6 +10,17 @@
 		private $_bill_id = null;
 
 
+		public function getByDate($start_date , $end_date)
+		{	
+			$this->db->query(
+				"SELECT * FROM {$this->table}
+					WHERE date(created_at)
+						between '{$start_date}' and '{$end_date}' "
+			);
+
+			return $this->db->resultSet();
+		}
+
 		public function getItemsByBill($bill_id)
 		{
 			return parent::getAssoc('name' , [

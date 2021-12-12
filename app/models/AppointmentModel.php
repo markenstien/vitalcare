@@ -54,11 +54,15 @@
 				{
 
 					$user_model = model('UserModel');
-					$email = $user_model->fetchSigleSingleColumn('email' , ['id' => $user_id]);
 
+					$user = $user_model->single(['id' => $user_id]);
+
+					$email = $user->email;
+					$user_mobile_number = $user->phone_number;
+					
 					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email]);
 
-					_notify();
+					send_sms("Appointment to vitalcare is submitted .#{$reference} appointment reference" , [$user_mobile_number]);
 				}
 				
 				_notify_operations("Appointment to vitalcare is submitted .#{$reference} appointment reference");

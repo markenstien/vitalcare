@@ -37,7 +37,6 @@
 				'name' => 'license_number',
 				'type' => 'text',
 				'class' => 'form-control',
-				'required' => '',
 				'options' => [
 					'label' => 'License Number'
 				],

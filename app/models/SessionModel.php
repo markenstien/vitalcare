@@ -47,14 +47,27 @@
 
 			$user_model = model('UserModel');
 
+			$patient_email = $fillable_datas['guest_email'];
+			$patient_phone = $fillable_datas['guest_phone'];
+			$patient_name = $fillable_datas['guest_name'];
+
+			if( isset($session_data['user_id']) && !isEqual($session_data['user_id'] , '0') )
+			{
+				$user = $user_model->single(['id' => $session_data['user_id']]);
+				_notify('DRA/DR. '.$doctor_name ." . started a session with you" , [$session_data['user_id']]);
+			}
+
 			$doctor_name  = $user_model->fetchSigleSingleColumn('first_name' , ['id' => $session_data['doctor_id']]);
-			$patient_name = $user_model->fetchSigleSingleColumn('first_name' , ['id' => $session_data['user_id']]);
-			$user_email = $user_model->fetchSigleSingleColumn('email' , ['id' => $session_data['user_id']]);
 
-			_notify('DRA/DR. '.$doctor_name ." . started a session with you" , [$session_data['user_id']]);
-
-			_notify_include_email('DRA/DR. '.$doctor_name ." . started a session with you" , [$session_data['user_id']],[$user_email]);
-
+			/*
+			*email to guest email
+			*/
+			_notify_email( 'DRA/DR. '.$doctor_name ." . started a session with you"  , [$patient_email]);
+			/*
+			*email to valid user number
+			*/
+			send_sms('DRA/DR. '.$doctor_name ." . started a session with you " , [$patient_phone]);
+			/*notify operations*/
 			_notify_operations(" 'DRA/DR. '.{$doctor_name} started a session with {$patient_name}");
 
 
@@ -113,7 +126,9 @@
 			
 
 			$this->db->query(
-				"SELECT session.* , user.first_name , user.last_name 
+				"SELECT session.* , user.first_name , user.last_name ,
+					concat(user.first_name , ' ' , user.last_name) as doctor_name
+
 					FROM {$this->table} as session
 					LEFT JOIN users as user 
 					ON session.doctor_id = user.id

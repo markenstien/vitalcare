@@ -46,11 +46,14 @@
 				{
 					$this->user_model = model('UserModel');
 
-					$user_first_name = $this->user_model->fetchSigleSingleColumn(['first_name' , '' , 'last_name'] , ['id' => $bill_id->user_id]);
+					$user = $this->user_model->single(['id' => $bill_id->user_id]);
 
-					$user_email = $this->user_model->fetchSigleSingleColumn($email, ['id' => $bill_id->user_id]);
+					$user_email = $user->email;
+					$user_mobile_number = $user->phone_number;
 
 					_notify_include_email("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference", [$bill->user_id],[$user_email]);
+
+					send_sms("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference" , [$user_mobile_number]);
 
 				}
 

@@ -32,13 +32,13 @@
     <?php if(isEqual($auth->user_type , 'admin')):?>
         <li class="nav-item">
             <a class="nav-link" href="<?php echo _route('user:index')?>">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-user"></i>
                 <span>User</span></a>
         </li>   
 
         <li class="nav-item">
             <a class="nav-link" href="<?php echo _route('category:index')?>">
-                <i class="fas fa-fw fa-chart-area"></i>
+                <i class="fas fa-sort-alpha-down"></i>
                 <span>Categories</span></a>
         </li>
     <?php endif?>
@@ -46,31 +46,37 @@
     
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('appointment:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-calendar-check"></i>
             <span>Appointments</span></a>
     </li>
     <?php if(isEqual($auth->user_type , 'admin')):?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('bill:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-file-alt"></i>
             <span>Bills</span></a>
     </li>
     <?php endif?>
 
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('session:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-calendar-check"></i>
             <span>Sessions</span></a>
     </li>
 
     <?php if(isEqual($auth->user_type , ['admin' , 'doctor'])):?>
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('payment:index')?>">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-money-check"></i>
             <span>Payments</span></a>
     </li>
     <?php endif?>
     <?php if(isEqual($auth->user_type , 'admin')):?>
+    <li class="nav-item">
+        <a class="nav-link" href="/ReportController/create">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Reports</span></a>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
