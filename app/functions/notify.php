@@ -98,7 +98,7 @@
 
 	function _notify_include_email( $message , $recipientIds , $emails  , $attributes = [])
 	{
-		__notify($message , $recipientIds , $attributes);
+		_notify($message , $recipientIds , $attributes);
 
 		$content = pull_view('tmp/emails/email_text_only_tmp' , [
 			'text' => $message,
