@@ -1,7 +1,8 @@
 <?php 
 
-	class DashboardController extends Controller
+	class CalendarController extends Controller
 	{
+
 
 		public function __construct()
 		{
