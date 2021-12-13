@@ -42,7 +42,13 @@
                 <span>Categories</span></a>
         </li>
     <?php endif?>
-
+    <?php if(isEqual($auth->user_type , ['admin' , 'doctor'])):?>
+        <li class="nav-item">
+            <a class="nav-link" href="/CalendarController/index">
+                <i class="fas fa-calendar"></i>
+                <span>Calendar</span></a>
+        </li>
+    <?php endif?>
     
     <li class="nav-item">
         <a class="nav-link" href="<?php echo _route('appointment:index')?>">
