@@ -114,7 +114,6 @@
     <script src="<?php echo _path_tmp('js/sb-admin-2.min.js')?>"></script>
 
     
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="<?php echo _path_public('js/global.js')?>"></script>
     
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -125,7 +124,7 @@
         $(document).ready(function(){
           $('.dataTable').DataTable();
         });
-        </script>
+    </script>
     <?php produce('scripts') ?>
 
 </body>

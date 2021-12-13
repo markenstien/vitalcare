@@ -14,7 +14,7 @@
 		$href = $attributes['href'] ?? '';
 
 
-		$message = str_escape($val , $message);
+		$message = str_escape($message , FILTER_SANITIZE_STRING);
 		$db->query(
 			"INSERT INTO system_notifications(message , icon , color , heading , subtext , href)
 				VALUES('{$message}' , '{$icon}' , '{$color}' , '{$heading}' , '{$subtext}' , '{$href}')"
@@ -105,5 +105,36 @@
 		]);
 
 		_notify_email($message , $emails);
+	}
+
+	function _notify_pull_items( $user_id )
+	{
+		$user_model = model('UserModel');
+
+		$user = $user_model->get($user_id);
+
+		$db = Database::getInstance();
+
+		if( isEqual($user->user_type , ['patient' , 'doctor']) ){
+
+			$db->query(
+				"SELECT * FROM system_notification_recipients as syr
+					LEFT JOIN system_notifications as sy 
+					ON sy.id  = syr.notification_id 
+					WHERE recipient_id = '{$user_id}'
+					ORDER BY sy.id desc"
+			);
+
+			return $db->resultSet();
+		}else
+		{
+			$db->query(
+				"SELECT * FROM system_notifications
+					ORDER BY id desc "
+			);
+
+			$items = $db->resultSet();
+			return $items;
+		}
 	}
 ?>

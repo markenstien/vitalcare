@@ -78,12 +78,12 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#module-service-items"
+            aria-expanded="true" aria-controls="module-service-items">
             <i class="fas fa-fw fa-cog"></i>
             <span>Services</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="module-service-items" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Modules</h6>
                 <a class="collapse-item" href="<?php echo _route('service:index')?>">Service</a>

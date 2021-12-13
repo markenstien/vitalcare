@@ -48,6 +48,9 @@
 			$_fillables = $this->getFillablesOnly($appointment_data);
 			$appointment_id = parent::store($_fillables);
 
+
+			$appointment_link = _route('appointment:show' , $appointment_id);
+
 			if( $appointment_id )
 			{
 				if( !is_null($user_id) )
@@ -60,12 +63,12 @@
 					$email = $user->email;
 					$user_mobile_number = $user->phone_number;
 					
-					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email]);
+					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email] , ['href' => $appointment_link ]);
 
 					send_sms("Appointment to vitalcare is submitted .#{$reference} appointment reference" , [$user_mobile_number]);
 				}
 				
-				_notify_operations("Appointment to vitalcare is submitted .#{$reference} appointment reference");
+				_notify_operations("Appointment to vitalcare is submitted .#{$reference} appointment reference" , ['href' => $appointment_link]);
 			}
 
 			return $appointment_id;

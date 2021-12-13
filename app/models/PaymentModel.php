@@ -20,6 +20,8 @@
 
 			$payment_id = parent::store($fillable_datas);
 
+			$payment_link = _route('payment:show' , $payment_id);
+
 			if( $payment_id )
 			{
 				$bill_model = model('BillModel');
@@ -51,13 +53,21 @@
 					$user_email = $user->email;
 					$user_mobile_number = $user->phone_number;
 
-					_notify_include_email("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference", [$bill->user_id],[$user_email]);
+
+					$notify_include_email_data = [
+						"You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference",
+							[$bill->user_id],
+							[$user_email],
+							['href' => $payment_link]
+					];
+
+					_notify_include_email(...$notify_include_email_data);
 
 					send_sms("You have paid your balance {$fillable_datas['amount']} via {$fillable_datas['method']}.#{$payment_data['reference']} Payment reference" , [$user_mobile_number]);
 
 				}
 
-				_notify_operations( $user_first_name ?? 'Guest' . ' ' .'submitted a payment of '.$fillable_datas['amount'] );
+				_notify_operations( $user_first_name ?? 'Guest' . ' ' .'submitted a payment of '.$fillable_datas['amount'] , ['href' => $payment_link]);
 
 				$this->addMessage("Payment saved");
 				return $payment_id;
