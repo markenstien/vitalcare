@@ -200,8 +200,6 @@
 
 			$email_body = wEmailComplete($email_content);
 
-			echo $email_body; die();
-
 			_mail($user_data['email'] , "Verify Account" , $email_body);
 
 			return $res;
