@@ -194,8 +194,7 @@
 			$email_content = <<<EOF
 				<h3> User Verification </h3>
 				<p> Thank you for registering on out platform , 
-					Verify your Registration by <br/>
-					{$_anchor}</p>
+					Verify your Registration by <br/>{$_anchor}</p>
 			EOF;
 
 			$email_body = wEmailComplete($email_content);
