@@ -10,7 +10,10 @@
 		'create' => $controller.'/create',
 		'delete' => $controller.'/destroy',
 		'show'   => $controller.'/show',
-		'sendAuth' => $controller.'/sendAuth'
+		'profile' => $controller.'/profile',
+		'sendAuth' => $controller.'/sendAuth',
+		'register' => $controller.'/register',
+		'verification' => $controller.'/verification'
 	];
 
 	$controller = '/AuthController';
@@ -60,7 +63,8 @@
 		'edit' => $controller.'/edit',
 		'add' => $controller.'/add',
 		'delete' => $controller.'/destroy',
-		'show'   => $controller.'/show'
+		'show'   => $controller.'/show',
+		'destroy-cart' => $controller.'/destroyCart'
 	];
 
 

@@ -143,6 +143,7 @@
 					$bundle = $this->bundle->getWithItems($item->service_id);
 					/*get bubndle*/
 					$data = [
+						'id'   => $item->id,
 						'type' => 'bundle',
 						'bundle' => $bundle,
 						'items'  => $bundle->items,
@@ -150,11 +151,12 @@
 					];
 				}else
 				{
-					$item = $this->service->get($item->service_id);
+					$product = $this->service->get($item->service_id);
 					$data = [
+						'id'   => $item->id,
 						'type' => 'single',
-						'item' => $item,
-						'price' => $item->price
+						'item' => $product,
+						'price' => $product->price
 					];
 				}
 

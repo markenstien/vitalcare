@@ -72,11 +72,11 @@
 
 			if( isset($_GET['categories']) )
 			{
-				if( !empty($s_where) ) 
+				if( !empty($b_where) ) 
 				$b_where .= " AND ";
 				$b_where .= " category_id in ('".implode("','" , $_GET['categories'])."') ";
 			}
-
+			
 			return $this->getAll([
 				'where' => $b_where,
 				'order' => 'name asc'

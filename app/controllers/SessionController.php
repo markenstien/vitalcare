@@ -155,7 +155,9 @@
 			$this->data['attachment_form'] = $this->_attachmentForm;
 
 
-			$this->data['form'] = $form;
+			$this->data['form'] = $form;	
+
+			$this->data['has_control'] = isEqual( whoIs('user_type') , ['admin','doctor']);
 
 			return $this->view('session/show' , $this->data);
 		}

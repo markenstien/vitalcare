@@ -70,12 +70,17 @@
 								__( $form->getRow('phone_number') );
 							?>
 						</div>
+					</div>
+				</div>
 
+				<div class="card">
+					<div class="card-header">
+						<h4 class="card-title">Address</h4>
+					</div>
 
+					<div class="card-body">
 						<div class="form-group">
-							<?php
-								__( $form->getRow('address') );
-							?>
+							<?php echo __( $form_address->getFormItems('col') )?>
 						</div>
 					</div>
 				</div>

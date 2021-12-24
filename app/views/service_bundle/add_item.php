@@ -12,9 +12,55 @@
 					<h4 class="card-title">Select Services to bundle</h4>
 				</div>
 				<div class="card-body">
+					<!-- FILTER -->
+					<section>
+						<?php
+							Form::open([
+								'method' => 'GET',
+								'action' => ''
+							]);
+						?>
+
+						<div class="form-group">
+							<?php
+								Form::label('Keyword Search');
+								Form::text('key_word' , '' , [
+									'class' => 'form-control'
+								])
+							?>
+						</div>
+
+						<?php
+							$filter_categories = $_GET['categories'] ?? [];
+						?>
+						<?php foreach($categories as $category) :?>
+							<label style="padding: 10px; background: #eee;">
+								<?php echo strtoupper($category->category)?>
+								<?php 
+									$category_is_check = isEqual( $category->id, $filter_categories);
+
+									Form::checkbox('categories[]', $category->id , $category_is_check ? [
+										'checked' => true
+									] : null);
+								?>
+							</label>
+						<?php endforeach?>
+
+						<div class="mt-2">
+							<?php Form::submit('btn_filter' , 'Apply Filter')?>
+							<?php if( isset($_GET['btn_filter']) || isset($_GET['category'])) :?>
+								<a href="?" class="btn btn-warning btn-sm"> Clear Filter </a>
+							<?php endif?>
+						</div>
+						<?php Form::close()?>
+
+					</section>
+
+					<br>
+					<!--//FILTER -->
 					<div class="row">
 					<?php foreach($services as $row) :?>	
-						<div class="col-md-4">
+						<div class="col-md-4 mb-2">
 							<div class="card">
 								<div class="card-body">
 									<p><?php echo $row->description?></p>

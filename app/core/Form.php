@@ -3,7 +3,7 @@
 
 	load(['FormBuilder'], CORE);
 
-	abstract class Form
+	class Form
 	{
 
 		protected $_type = 'crud';
@@ -66,6 +66,14 @@
 
 			$this->_items = $items;
 		}
+
+		public function addAndCall( $params = [] )
+		{
+			$this->add( $params );
+
+			return $this->get($params['name']);
+		}
+
 
 		public function add($params = [])
 		{
@@ -378,6 +386,42 @@
 		}
 
 
+		public function getFormItems( $inputType = 'row' )
+		{
+			$items = $this->_items;
+			$html = '';
+
+			foreach($items as $item) 
+			{
+				if( isEqual($item['type'] , ['submit' , 'hidden']) )
+				{
+					$btn = $this->get($item['name']);
+
+					$html .= <<<EOF
+						<div>
+							{$btn}
+						</div>
+					EOF;
+
+				}else
+				{
+					if( isEqual($inputType , 'row') ){
+						$label_input_bundle = $this->getRow($item['name']);
+					}else{
+						$label_input_bundle = $this->getCol($item['name']);
+					}
+
+					$html .= <<<EOF
+						<div class='form-group mb-2'>
+							{$label_input_bundle}
+						</div>
+					EOF;
+				}
+			}
+
+			return $html;
+		}
+
 		public function getForm($inputType = 'row')
 		{
 			$html = '';
@@ -417,12 +461,41 @@
 
 		final public function customSubmit($value = null , $name = null, $attributes = null)
 		{
+			$class = 'btn btn-primary form-verify';
+
+			if(isset($attributes['class'])){
+				$class = $attributes['class'];
+				unset($attributes['class']);
+			}
+
 			$this->add([
 				'type' => 'submit',
 				'name' => $name ?? 'submit',
 				'value' => $value ?? 'save',
 				'attributes' => $attributes ?? [],
-				'class' => 'btn btn-primary'
+				'class' => $class
 			]);
+		}
+
+		final public function formConvertType( $type )
+		{
+			switch( strtolower($type) )
+			{
+				case 'dropdown':
+					return 'select';
+				break;
+
+				case 'short answer':
+					return 'text';
+				break;
+
+				case 'long answer':
+					return 'textarea';
+				break;
+
+				default:
+					return $type;
+				break;
+			}
 		}
 	} 

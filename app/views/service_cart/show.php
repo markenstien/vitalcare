@@ -30,7 +30,7 @@
 															<td><?php echo $cart['bundle']->name?></td>
 															<td><?php echo $cart['bundle']->public_price?></td>
 															<td>
-																<a href="#" style="color:#fff"> <i class="fa fa-trash"></i> Remove Item</a>
+																<a href="<?php echo _route('service-cart:delete' , $cart['id'])?>" style="color:#fff"> <i class="fa fa-trash"></i> Remove Item</a>
 															</td>
 														</tr>
 													<?php
@@ -60,7 +60,7 @@
 															<td><?php echo $cart['item']->service?></td>
 															<td><?php echo $cart['item']->price?></td>
 															<td>
-																<a href="#"> 
+																<a href="<?php echo _route('service-cart:delete' , $cart['id'])?>"> 
 																<i class="fa fa-trash"></i> Remove Item</a>
 															</td>
 														</tr>
@@ -107,6 +107,12 @@
 								<div class="form-group">
 									<?php
 										__( $form->getRow('date',['value' => date('Y-m-d') ]));
+									?>
+								</div>
+
+								<div class="form-group">
+									<?php
+										__( $form->getRow('start_time',['value' => date('h:i:s') ]));
 									?>
 								</div>
 

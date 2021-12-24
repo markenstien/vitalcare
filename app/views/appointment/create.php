@@ -47,7 +47,7 @@
 
 			</div>
 
-			<div class="col-md-7">
+			<div class="col-md-6">
 				<div class="row">
 					<?php foreach($service_bundles as $row) :?>
 						<div class="col-md-6 mb-3">
@@ -134,11 +134,15 @@
 				</div>
 			</div>
 
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<div>
 					<h4> <i class="fas fa-shopping-cart"></i> Services Selected <?php echo $cart_summary['total_items']?></h4>
 					<div>Total : <?php echo $cart_summary['total_amount']?></div>
 					<a href="<?php echo _route('service-cart:show' , $service_cart_model->getAndCreateToken())?>">Go to Appointment Reservation</a>
+					<br> <br>
+					<?php if( intval($cart_summary['total_items']) > 0) :?>
+						<a href="<?php echo _route('service-cart:destroy-cart')?>" class="btn btn-danger btn-sm">Clear Cart</a>
+					<?php endif?>
 				</div>
 			</div>
 		</div>

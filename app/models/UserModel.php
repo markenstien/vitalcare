@@ -22,8 +22,35 @@
 			'created_by',
 			'user_type',
 			'profile',
-			'updated_at'
+			'updated_at',
+			'is_verified'
 		];
+
+		public function verification($id)
+		{
+			$user = parent::get($id);
+
+			if($user->is_verified) {
+				$this->addError("User is already verified");
+				return false;
+			}
+
+			parent::update([
+				'is_verified' => true
+			] , $id);
+
+
+			$authenticated = $this->authenticate($user->email , $user->password);
+
+			if(!$authenticated){
+				$this->addMessage("User Verified");
+				$this->redirect_to = _route('auth:login');
+			}
+
+			$this->addMessage("User Verified , Welcome to your appointments!");
+			$this->redirect_to = _route('appointment:index');
+			return true;
+		}
 
 		public function save($user_data , $id = null)
 		{
@@ -34,8 +61,19 @@
 			$validated = $this->validate($fillable_datas , $id );
 
 			if(!$validated) return false;
-				
 
+
+			/*
+			*update address info
+			*/
+
+			$address_model = model('AddressModel');
+
+			$address_id = $user_data['address_id'] ?? null;
+
+			$address_id = $address_model->createOrUpdate($user_data , $address_id);
+
+			$fillable_datas['address_id'] = $address_id;
 			if( !is_null($id) )
 			{
 				//change password also
@@ -141,6 +179,34 @@
 			return $res;
 		}
 
+		public function register($user_data , $profile = '')
+		{
+			$res = $this->create($user_data , $profile);
+
+			if(!$res)
+				return false;
+
+			//create user-verification-link //send-to-email
+			//seal user-id
+			$_href = URL.DS._route('user:verification' , seal($res));
+			$_anchor = "<a href='{$_href}'>clicking this link</a>";
+
+			$email_content = <<<EOF
+				<h3> User Verification </h3>
+				<p> Thank you for registering on out platform , 
+					Verify your Registration by <br/>
+					{$_anchor}</p>
+			EOF;
+
+			$email_body = wEmailComplete($email_content);
+
+			echo $email_body; die();
+
+			_mail($user_data['email'] , "Verify Account" , $email_body);
+
+			return $res;
+		}
+
 		public function uploadProfile($file_name , $id)
 		{
 			$is_empty = upload_empty($file_name);
@@ -192,10 +258,21 @@
 		{
 			$user = parent::get($id);
 
+			if(!$user) {
+				$this->addError("No User");
+				return false;
+			}
+			
 			if( isEqual($user->user_type , 'doctor') )
 			{
 				$this->doctor = model('DoctorModel');
 				$user->license_number = $this->doctor->getByUser($id)->license_number ?? null;
+			}
+
+			if( !is_null($user->address_id)  )
+			{
+				$address_model = model('AddressModel');
+				$user->address_atomic_text = $address_model->getConcat($user->address_id);
 			}
 
 			return $user;
@@ -261,6 +338,11 @@
 
 			if(!empty($errors)){
 				$this->addError( implode(',', $errors));
+				return false;
+			}
+
+			if( !$user->is_verified){
+				$this->addError("Verify your account to access " . COMPANY_NAME . " Platform");
 				return false;
 			}
 

@@ -27,9 +27,13 @@
                     </table>
                 </div>
 
-                <h4><?php echo $bill->bill_to_name?></h4>
+                <h4>
+                    <?php echo $bill->bill_to_name?>
+                    <input type="hidden" name=" <?php echo $bill->bill_to_name?>" id="id_billed_to_name">
+                </h4>
                 <dl>
                     <dd><?php echo $bill->bill_to_email?></dd>
+                    <input type="hidden" name=" <?php echo $bill->bill_to_email?>" id="id_billed_to_email">
                 </dl>
 
                 <section>
@@ -78,63 +82,7 @@
 
 <?php build('scripts')?>
     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo Module::get('thirdparty')['paypal']['client_id']?>&currency=PHP"></script>
-
-<script>
-    $( document ).ready( function(e)
-    {
-        let url = getURL('api/API_Payment/payResponse');
-        let amount = parseInt(document.getElementById('total_amount').value);
-        let bill_id = $('#bill_id').val();
-        let user_id = $('#user_id').val();
-        let method = $("#method").val();
-
-
-        paypal.Buttons({
-            // Set up the transaction
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: amount
-                        }
-                    }]
-                });
-            },
-            // Finalize the transaction
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(orderData) 
-                {
-                    let payer = orderData.payer;
-                    $.ajax({
-                        url : url,
-                        method :'post',
-                        data : {
-                            amount:amount,
-                            method:method,
-                            reference: orderData.id,
-                            acc_name : payer.name.given_name + ' ' + payer.name.surname,
-                            email : payer.email_address,
-                            bill_id: bill_id,
-                            user_id: user_id
-                        },
-
-                        success: function(response)
-                        {
-                            alert("Payment Success");
-                        }
-                    }).done( function() 
-                    {
-                        window.location.href = getURL('PaymentController/confirmation');
-                    });
-                });
-            },
-
-            onCancel:function(data){
-                alert('Payment Cancelled');
-            }
-        }).render("#paypal-button-container");
-    });
-</script>
+    <script src="<?php echo _path_public('js/payment/payment.js')?>" defer></script>
 <?php endbuild()?>
 
 <?php loadTo('tmp/base')?>

@@ -230,7 +230,8 @@
 				],
 
 				'attributes' => [
-					'id' => 'id_user_type'
+					'id' => 'id_user_type',
+					'data-target' => '#id_container_licensed_number'
 				]
 			]);
 		}

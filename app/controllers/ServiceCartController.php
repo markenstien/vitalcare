@@ -13,6 +13,14 @@
 			$this->_form = new AppointmentForm();
 		}
 
+		public function destroyCart()
+		{
+			$this->model->destroyCart();
+
+			Flash::set("Removed items");
+
+			return request()->return();
+		}
 
 		public function add( )
 		{

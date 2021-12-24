@@ -78,6 +78,10 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="<?php echo _route('user:profile')?>">
+                    <i class="fas fa-address-altUserController fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                </a>
                 <a class="dropdown-item" href="<?php echo _route('auth:logout')?>">
                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
@@ -88,6 +92,11 @@
 
     <?php else:?>
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown no-arrow">
+            <a class="nav-link" href="<?php echo _route('user:register')?>" aria-expanded="false">
+                <span class="text-primary">Register</span>
+            </a>
+        </li>
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link" href="<?php echo _route('auth:login')?>" aria-expanded="false">

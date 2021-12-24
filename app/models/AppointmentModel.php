@@ -88,6 +88,9 @@
 			//check item firsts
 			$appointment_id = $this->create($appointment_data);
 
+			if(!$appointment_id)
+				return false;
+
 			$this->bill_model = model('BillModel');
 
 			$bill_data = [

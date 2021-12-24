@@ -131,10 +131,7 @@
 
 	function smsWithSig($message , $signature)
 	{
-		return <<<EOF
-			$message \n
-			From: $signature
-		EOF;
+		return "{$message} From: {$signature}";
 	}
 
 

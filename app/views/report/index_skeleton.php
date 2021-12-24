@@ -61,7 +61,7 @@
 			<?php endforeach?>
 		</table>
 
-		<?php if( isset($report_grouped) ) :?>
+		<?php if( isset($report_grouped) && $report_grouped ) :?>
 			<h4>Daily</h4>
 			<section style="border:1px solid #000; padding: 10px;margin-bottom: 15px;">
 				<h5>Appointments</h5>

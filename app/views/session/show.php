@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="row">
-						<?php if(isset($session->patient_account) && $session->patient_account->profile) :?>
+						<?php if($session->patient_account && $session->patient_account->profile) :?>
 						<div class="col-md-2"><img src="<?php echo $session->patient_account->profile?>" style="width: 70px; height: 70px;"></div>
 						<?php endif?>
 						<div class="col">
@@ -77,7 +77,7 @@
 							</tr>
 						</table>
 					</div>
-					<a href="#">Show Account</a>
+					<a href="<?php echo _route('user:show' , $doctor->user_id)?>">Show Account</a>
 				</div>
 			</div>
 		</div>
@@ -88,7 +88,9 @@
 					<section>
 						<h4>Doctors Remarks</h4>
 						<p><?php echo $session->remarks?></p>
+						<?php if($has_control) :?>
 						<a href="#" data-toggle="modal" data-target="#modelDoctorRemarks"><?php echo empty($session->remarks) ? 'Add Remarks' : 'Edit Remarks'?></a>
+						<?php endif?>
 					</section>
 
 					<?php divider()?>
@@ -96,7 +98,9 @@
 					</section>
 						<h4>Doctors Recommendations</h4>
 						<p><?php echo $session->doctor_recommendations?></p>
-						<a href="#" data-toggle="modal" data-target="#modeldoctorRecommendations"><?php echo empty($session->doctor_recommendations) ? 'Add Recommendations' : 'Edit Recommendations'?></a>
+						<?php if($has_control) :?>
+							<a href="#" data-toggle="modal" data-target="#modeldoctorRecommendations"><?php echo empty($session->doctor_recommendations) ? 'Add Recommendations' : 'Edit Recommendations'?></a>
+						<?php endif?>
 					</section>
 				</div>
 
@@ -126,8 +130,8 @@
 			<section>
 				<h4 class="card-title">Files</h4>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-				  Add File
-				</button>
+					  Add File
+					</button>
 				<hr>
 
 				<div class="table-responsive">
@@ -152,6 +156,7 @@
 									<td>
 										<a href="<?php echo _download_wrap($row->filename , $row->path) ?>" class="btn btn-primary btn-sm"> <i class="fa fa-download"></i> </a>
 											&nbsp;
+
 										<a href="<?php echo _route('attachment:delete' , $row->id) ?>" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>
 									</td>
 								</tr>

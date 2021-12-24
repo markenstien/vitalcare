@@ -34,6 +34,9 @@
 					Flash::set( "Welcome Back !" . auth('first_name'));
 				}
 
+				if( isEqual(auth('user_type'),'patient') )
+					return redirect( _route('appointment:index') );
+
 				return redirect('DashboardController');
 			}
 

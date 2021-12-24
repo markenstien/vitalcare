@@ -61,7 +61,11 @@
 
 							<tr>
 								<td>Address</td>
-								<td><?php echo $user->address?></td>
+								<?php if( isset($user->address_atomic_text) ) :?>
+									<td>
+										<?php echo $user->address_atomic_text?>
+									</td>
+								<?php endif?>
 							</tr>
 						</table>
 					</div>

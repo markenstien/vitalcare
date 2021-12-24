@@ -18,3 +18,9 @@ create table users(
 	created_at timestamp default now(),
 	updated_at timestamp default now() ON UPDATE now()
 );
+
+alter table users 
+	add column is_verified boolean default false;
+
+alter table users 
+	add column address_id int(10);
