@@ -27,7 +27,7 @@
 								<td><?php echo $row->external_reference?></td>
 								<td><?php echo $row->org?></td>
 								<td>
-									<a href="<?php echo _route('bill:show' , $row->id)?>">Show</a>
+									<a href="<?php echo _route('bill:show' , $row->bill_id)?>">Show Bill</a>
 								</td>
 								<td>
 									<?php

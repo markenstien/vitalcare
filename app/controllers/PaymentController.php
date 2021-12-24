@@ -21,6 +21,17 @@
 			return $this->view('payment/index' , $data);
 		}
 
+		public function show($id)
+		{
+			$payment = $this->payment->get( $id );
+
+			$data = [
+				'title' => 'Payment-Overview',
+				'payment' => $payment
+			];
+			
+			return $this->view('payment/show' , $data);
+		}
 
 		public function confirmation()
 		{
