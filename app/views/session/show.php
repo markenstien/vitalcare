@@ -1,5 +1,4 @@
 <?php build('content') ?>
-	
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
@@ -89,7 +88,7 @@
 						<h4>Doctors Remarks</h4>
 						<p><?php echo $session->remarks?></p>
 						<?php if($has_control) :?>
-						<a href="#" data-toggle="modal" data-target="#modelDoctorRemarks"><?php echo empty($session->remarks) ? 'Add Remarks' : 'Edit Remarks'?></a>
+							<a href="#" data-toggle="modal" data-target="#modelDoctorRemarks"><?php echo empty($session->remarks) ? 'Add Remarks' : 'Edit Remarks'?></a>
 						<?php endif?>
 					</section>
 
@@ -157,7 +156,9 @@
 										<a href="<?php echo _download_wrap($row->filename , $row->path) ?>" class="btn btn-primary btn-sm"> <i class="fa fa-download"></i> </a>
 											&nbsp;
 
-										<a href="<?php echo _route('attachment:delete' , $row->id) ?>" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>
+										<?php if($has_control) :?>
+											<a href="<?php echo _route('attachment:delete' , $row->id) ?>" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> </a>
+										<?php endif?>
 									</td>
 								</tr>
 							<?php endforeach?>
