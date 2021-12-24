@@ -10,10 +10,11 @@
         'username' => 'super@vitalcare.sbs',
         'password' => 'c;6*CBlLMFFz',
         'host'     => 'vitalcare.sbs',
-        'name'     => 'vitalcare',
+        'name'     => 'VitalCare',
         'replyTo'  => 'super@vitalcare.sbs',
-        'replyToName' => 'vitalcare'
+        'replyToName' => 'VitalCare'
     ];
+
 
     const ITEXMO = [
         'key' => 'ST-MARKG387451_V6YZ8',

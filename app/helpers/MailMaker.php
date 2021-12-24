@@ -118,14 +118,9 @@
 
 			foreach($recieverList as $key => $receiver)
 			{
-				$reciever = trim($receiver);
-
-				if( empty($receiver ))
-					continue;
-				
 				try
 				{
-					
+					$reciever = trim($receiver);
 
 					$this->phpmailer->addAddress($receiver , $receiver);
 
