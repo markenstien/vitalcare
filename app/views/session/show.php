@@ -153,6 +153,9 @@
 									<td><?php echo $row->file_type?></td>
 									<td><?php echo $row->description?></td>
 									<td>
+										<a href="/ViewerController/show/?file=<?php echo urlencode($row->full_url)?>" class="btn btn-primary btn-sm"> <i class="fa fa-eye"></i> </a>
+											&nbsp;
+
 										<a href="<?php echo _download_wrap($row->filename , $row->path) ?>" class="btn btn-primary btn-sm"> <i class="fa fa-download"></i> </a>
 											&nbsp;
 

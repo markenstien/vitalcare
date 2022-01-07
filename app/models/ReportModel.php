@@ -114,8 +114,7 @@
 			$appointments = $report_results['appointments'];
 			$sessions = $report_results['sessions'];
 			$services_catered = $report_results['services_catered'];
-
-
+			
 			$report_summary = [
 				'total_appointments' => 0,
 				'total_appointment_arrived' => 0,

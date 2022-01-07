@@ -30,18 +30,22 @@
 		*/
 		public function addDoctor()
 		{
-			$doctor_model = model('DoctorModel');
+			$user_model = model('UserModel');
 
-			$doctors = $doctor_model->getAll();
+			$users = $user_model->getAll([
+				'where' => [
+					'user_type' => 'doctor'
+				]
+			]);
 
-			$doctors = arr_layout_keypair($doctors , ['user_id' , 'first_name@last_name']);
+			$users = arr_layout_keypair($users , ['id' , 'first_name@last_name']);
 
 			$this->add([
 				'type' => 'select',
 				'name' => 'doctor_id',
 				'options' => [
 					'label' => ' Attending Doctor ',
-					'option_values' => $doctors
+					'option_values' => $users
 				],
 				'class' => 'form-control',
 				'required' => true,
@@ -144,11 +148,11 @@
 				'name' => 'guest_address',
 				'class' => 'form-control',
 				'options' => [
-					'label' => 'Email'
+					'label' => 'Address'
 				],
 
 				'attributes' => [
-					'id' => 'id_email',
+					'id' => 'id_address',
 					'placeholder' => 'home address',
 					'rows' => 3
 				]
