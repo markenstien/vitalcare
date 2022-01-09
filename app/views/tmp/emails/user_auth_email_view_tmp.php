@@ -1,7 +1,7 @@
 <?php 
 	$href = URL.DS._route('auth:login');
 
-	$link = "<a href='{$href}'>{$href}</a>";
+	$link = "<a href='{$href}'>Here</a>";
 	$html = <<<EOF
 		<h5>Good Day! {$user->first_name}</h5>
 		<p>Here is your credential for our system {$system_name}</p>
@@ -15,7 +15,7 @@
 				<td>{$user->password}</td>
 			</tr>
 		</table>
-		<p>Login Here {$link}</p>
+		<p>Login {$link}</p>
 	EOF;
 
 	$html = wEmailComplete($html);

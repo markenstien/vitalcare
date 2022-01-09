@@ -21,7 +21,7 @@
 			$this->addStatus();
 			$this->addDescription();
 			$this->addCategory();
-			$this->addVisible();
+			// $this->addVisible();
 
 
 			$this->addSubmit();

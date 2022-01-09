@@ -106,7 +106,15 @@
 						{$where} {$order}"
 			);
 
-			return $this->db->resultSet();
+			$results = $this->db->resultSet();
+			
+			$this->bundle_item = model('ServiceBundleItemModel');
+
+			foreach($results as $key => $row) {
+				$row->items = $this->bundle_item->getByBundle($row->id);
+			}
+
+			return $results;
 		}
 
 		public function save( $service_bundle_data , $id = null)

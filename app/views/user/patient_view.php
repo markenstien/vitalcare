@@ -143,7 +143,7 @@
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+	        <h5 class="modal-title" id="exampleModalLabel">Send Auth</h5>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
@@ -152,8 +152,8 @@
 	      	<form method="post" action="<?php echo _route('user:sendAuth' , $user->id)?>">
 	      		<input type="hidden" name="user_id" value="<?php echo $user->id?>">
 	      		<div class="form-group">
-	      			<label>Recipients</label>
-	      			<?php Form::textarea('recipients' , '' , ['class' => 'form-control' , 'required' => true])?>
+	      			<label>Recipient</label>
+	      			<?php Form::text('recipients' , $user->email , ['class' => 'form-control' , 'required' => true])?>
 	      		</div>
 
 	      		<input type="submit" name="" value="Send Auth" class="btn btn-primary btn-sm">

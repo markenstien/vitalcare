@@ -50,6 +50,7 @@
 			<div class="col-md-6">
 				<div class="row">
 					<?php foreach($service_bundles as $row) :?>
+						<?php $categories_selected = [] ?>
 						<div class="col-md-6 mb-3">
 							<div class="card">
 								<div class="card-header">
@@ -62,7 +63,22 @@
 											<td><?php echo $row->public_price?></td>
 										</tr>
 									</table>
-									<div>Category : <a href="?category=<?php echo $row->category?>"><?php echo $row->category?></a></div>
+									<?php if( $row->items ) :?>
+										<div>
+											Category : 
+											<?php foreach($row->items as $item_key => $item) : ?>
+												<?php
+													if( isEqual( $item->category , $categories_selected ) ){
+														continue;
+													}
+													$categories_selected[] = $item->category
+												?>
+												<a href="?category=<?php echo $item->category?>">
+													<label class="badge badge-primary"><?php echo $item->category?></label>
+												</a>
+											<?php endforeach?>
+										</div>
+									<?php endif?>
 								</div>
 
 								<div class="card-footer">
@@ -105,7 +121,11 @@
 											<td><?php echo $row->price?></td>
 										</tr>
 									</table>
-									<div>Category : <a href="?category=<?php echo $row->category?>"><?php echo $row->category?></a></div>
+									<div>Category : 
+										<a href="?category=<?php echo $row->category?>">
+											<label class="badge badge-primary"><?php echo $row->category?></label>
+										</a>
+									</div>
 								</div>
 
 								<div class="card-footer">

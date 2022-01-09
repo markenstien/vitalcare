@@ -123,7 +123,6 @@
 				'cat_key' => 'SERVICES'
 			]);
 
-
 			$cart_summary = $this->service_cart_model->getCartSummary();
 
 			$data = [

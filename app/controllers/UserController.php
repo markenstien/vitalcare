@@ -207,13 +207,14 @@
 				$data['doctor'] = $doctor_model->getByUser($user->id);
 
 
-			$data['doctor_specializations'] = $doctor_specialization->getByUser($user->id);
+				$data['doctor_specializations'] = $doctor_specialization->getByUser($user->id);
 
 				$data['sessions'] = $this->session->getAll([
 					'where' => [
 						'doctor_id' => $user->id
 					]
 				]);
+				
 
 				return $this->view('user/doctor_view' , $data);
 				break;

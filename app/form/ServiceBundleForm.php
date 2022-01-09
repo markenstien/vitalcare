@@ -16,7 +16,7 @@
 			// $this->init();
 
 			$this->addName();
-			$this->addCategory();
+			// $this->addCategory();
 			$this->addDescription();
 			$this->addPriceCustom();
 			$this->addDiscount();
