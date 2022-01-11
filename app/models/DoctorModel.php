@@ -57,7 +57,7 @@
 		{
 			return $this->getAll([
 				'where' => [
-					'user_id' => $user_id
+					'doctor.user_id' => $user_id
 				]
 			])[0] ?? false;
 		}
@@ -72,7 +72,7 @@
 
 			if( isset($params['order']) )
 				$order = " ORDER BY ".$params['order'];
-
+			
 			$this->db->query(
 				"SELECT user.* , doctor.* ,doctor.id as id
 					FROM {$this->table} as doctor

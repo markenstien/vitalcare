@@ -9,6 +9,7 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
+							<?php $discount = 0?>
 							<?php if($cart_items) :?>
 								<table class="table table-bordered">
 									<thead>
@@ -25,10 +26,16 @@
 											<?php
 												if( isEqual($cart['type'] , 'bundle'))
 												{
+													$discount += $cart['bundle']->discount;
 													?> 
 														<tr style="background: green; color: #fff;">
 															<td><?php echo $cart['bundle']->name?></td>
-															<td><?php echo $cart['bundle']->public_price?></td>
+															<td>
+																<?php if( $cart['bundle']->discount ) :?>
+																	<?php echo number_format($cart['bundle']->public_price - $cart['bundle']->discount , 2)?>
+																	<s><?php echo $cart['bundle']->public_price?></s>
+																<?php endif?>
+															</td>
 															<td>
 																<a href="<?php echo _route('service-cart:delete' , $cart['id'])?>" style="color:#fff"> <i class="fa fa-trash"></i> Remove Item</a>
 															</td>
@@ -72,7 +79,7 @@
 									</tbody>
 								</table>
 
-								<h5>Total : <?php echo amountHTML($cart_item_summary['total_amount'])?></h5>
+								<h5>Total : <?php echo amountHTML($cart_item_summary['total_amount'] - $discount)?></h5>
 							<?php else:?>
 								<h5>No Services Selected  <a href="<?php echo _route('appointment:create')?>">Add One Now</a></h5>
 							<?php endif?>
@@ -91,6 +98,8 @@
 					<div class="card-body">
 						<?php if(!$auth || isEqual($auth->user_type , 'patient')) :?>
 							<?php __( [$form->start() ] )?>
+
+							<?php __( $form->get('discount')) ?>
 
 								<?php
 									if($auth){

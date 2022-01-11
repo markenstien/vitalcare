@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-md-6">
 					<div class="row">
-						<?php if($session->patient_account && $session->patient_account->profile) :?>
+						<?php if(isset($session->patient_account) && $session->patient_account->profile) :?>
 						<div class="col-md-2"><img src="<?php echo $session->patient_account->profile?>" style="width: 70px; height: 70px;"></div>
 						<?php endif?>
 						<div class="col">
@@ -33,10 +33,9 @@
 						</table>
 					</div>
 
-					<?php if( isset($session->patient_account)) :?>
+					<?php if( !isset($session->patient_account)) :?>
 						<label>No Previous Record</label>
 					<?php else:?>
-
 						<a href="<?php echo _route('user:show' , $session->patient_account->user_id) ?>">View Patient Records</a>
 					<?php endif?>
 				</div>
@@ -128,9 +127,12 @@
 		<div class="card-body">
 			<section>
 				<h4 class="card-title">Files</h4>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+
+				<?php if( isEqual(whoIs('user_type') , 'admin')) :?>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 					  Add File
 					</button>
+				<?php endif?>
 				<hr>
 
 				<div class="table-responsive">

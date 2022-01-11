@@ -100,7 +100,8 @@
 				'bill_to_name'  => $appointment_data['guest_name'],
 				'bill_to_email'  => $appointment_data['guest_email'],
 				'bill_to_phone'  => $appointment_data['guest_phone'],
-				'appointment_id' => $appointment_id
+				'appointment_id' => $appointment_id,
+				'discount' => $appointment_data['discount']
 			];
 
 			$this->bill_id = $this->bill_model->createPullServiceCartItems( $bill_data );

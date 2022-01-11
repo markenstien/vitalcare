@@ -46,6 +46,8 @@
 		public function show($session)
 		{
 
+			$discount = 0;
+
 			$cart_token = $this->model->getAndCreateToken();
 
 			$cart_items = $this->model->getCart();
@@ -62,6 +64,19 @@
 				'type' => 'hidden',
 				'value' => $cart_token,
 				'name'  => 'service_cart_id'
+			]);
+
+
+			foreach( $cart_items as $key => $cart)
+			{
+				if( isEqual($cart['type'] , 'bundle') )
+					$discount += $cart['bundle']->discount;
+			}
+
+			$this->_form->add([
+				'type' => 'hidden',
+				'value' => $discount,
+				'name' => 'discount'
 			]);
 			
 			$data = [

@@ -127,6 +127,7 @@
 		{
 			$session = $this->model->getComplete($id);
 
+			
 			if(!$session) 
 				echo die('session not found!');
 

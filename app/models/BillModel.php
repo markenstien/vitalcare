@@ -123,7 +123,7 @@
 				$this->service_cart_model->destroyCart();
 			}
 
-			$bill_data['total_amount'] = $total;
+			$bill_data['total_amount'] = floatval($total - $bill_data['discount']);
 
 
 			return $this->createBill( $bill_data , $items );

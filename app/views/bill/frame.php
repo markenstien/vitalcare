@@ -29,11 +29,11 @@
 
                 <h4>
                     <?php echo $bill->bill_to_name?>
-                    <input type="hidden" name=" <?php echo $bill->bill_to_name?>" id="id_billed_to_name">
+                    <input type="hidden" name="" value="<?php echo $bill->bill_to_name?>" id="billed_to_name">
                 </h4>
                 <dl>
                     <dd><?php echo $bill->bill_to_email?></dd>
-                    <input type="hidden" name=" <?php echo $bill->bill_to_email?>" id="id_billed_to_email">
+                    <input type="hidden" name="" value="<?php echo $bill->bill_to_email?>" id="id_billed_to_email">
                 </dl>
 
                 <section>

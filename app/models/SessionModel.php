@@ -89,7 +89,7 @@
 
 			$this->user_model = model('UserModel');
 			$this->doctor_model = model('DoctorModel');
-
+			
 			if( $session->user_id ){
 				$patient = $this->user_model->get($session->user_id);
 				$session->patient_account = $patient;
