@@ -14,13 +14,13 @@
 
 			if( !is_null($id) )
 			{
-				if( ! $this->validateLicensedNumber($doctor_data['lincense_number'] , $id) ) return false;
+				if( ! $this->validateLicensedNumber($doctor_data['license_number'] , $id) ) return false;
 				//update
 				return parent::update($fillable_datas , $id);
 			}else
 			{
 				//create
-				if( ! $this->validateLicensedNumber($doctor_data['lincense_number']) ) return false;
+				if( ! $this->validateLicensedNumber($doctor_data['license_number']) ) return false;
 				return parent::store($fillable_datas );
 			}
 		}

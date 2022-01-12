@@ -1,7 +1,7 @@
 <?php build('page-control')?>
 	<a href="<?php echo _route('service-bundle:create')?>" 
 		class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-    class="fas fa-plus fa-sm text-white-50"></i> Add Bundle </a>
+    class="fas fa-plus fa-sm text-white-50"></i> Add Package </a>
 <?php endbuild()?>
 
 <?php build('content')?>

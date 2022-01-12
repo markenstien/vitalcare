@@ -111,7 +111,7 @@
 					'license_number' => $user_data['license_number'],
 					'user_id'        => $user_id
 				]);
-					
+
 			}
 
 			return $user_id;

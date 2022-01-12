@@ -17,7 +17,7 @@
 
 			$data = [
 				'service_bundles' => $service_bundles,
-				'title' => 'Service Bundles'
+				'title' => 'Packages'
 			];
 
 			return $this->view('service_bundle/index' , $data);
@@ -48,7 +48,7 @@
 
 			$data = [
 				'form' => $this->_form,
-				'title' => 'Service Bundles'
+				'title' => 'Packages'
 			];
 
 			return $this->view('service_bundle/create' , $data);
