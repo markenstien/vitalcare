@@ -95,7 +95,7 @@
 		{
 			$this->add([
 				'type' => 'select',
-				'name' => 'guest_genders',
+				'name' => 'guest_gender',
 				'class' => 'form-control',
 				'required' => true,
 				'options' => [

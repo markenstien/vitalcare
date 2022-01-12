@@ -12,6 +12,7 @@
 							<label>Patient</label>
 						</div>
 					</div>
+
 					<div class="table-responsive">
 						<table class="table table-bordered">
 							<tr>
@@ -63,7 +64,7 @@
 							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><?php echo $session->guest_gender?></td>
+								<td><?php echo $session->gender?></td>
 							</tr>
 							<tr>
 								<td>Contact Number</td>

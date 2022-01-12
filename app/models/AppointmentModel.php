@@ -39,7 +39,9 @@
 				return false;
 			/*check appointment date if in maximum*/
 
-			$appointment_data['reference'] = $this->generateRefence();
+			$reference =  $this->generateRefence();
+
+			$appointment_data['reference'] = $reference;
 			$appointment_data['user_id'] = $user_id ?? '';
 			$appointment_data['type'] = $type ?? 'online';
 			$appointment_data['remark'] = $remark ?? '';
@@ -63,6 +65,7 @@
 					$email = $user->email;
 					$user_mobile_number = $user->phone_number;
 					
+
 					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email] , ['href' => $appointment_link ]);
 
 					send_sms("Appointment to vitalcare is submitted .#{$reference} appointment reference" , [$user_mobile_number]);
@@ -74,7 +77,8 @@
 			return $appointment_id;
 		}
 
-		public function createWithBill( $appointment_data )
+		public function createWithBill
+		( $appointment_data )
 		{
 			$this->bill_model = model('BillModel');
 
