@@ -91,7 +91,7 @@
 			if( empty($email) )
 				continue;
 			
-			_mail($email , "Vital Care" , $content);
+			_mail($email , "Vital Care" , $message);
 		}
 	}
 

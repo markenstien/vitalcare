@@ -65,7 +65,6 @@
 					$email = $user->email;
 					$user_mobile_number = $user->phone_number;
 					
-
 					_notify_include_email("Appointment to vitalcare is submitted .#{$reference} appointment reference",[$user_id],[$email] , ['href' => $appointment_link ]);
 
 					send_sms("Appointment to vitalcare is submitted .#{$reference} appointment reference" , [$user_mobile_number]);
