@@ -94,7 +94,11 @@
 					</tbody>
 				</table>
 			</div>
-			<h5>Total Services Amount : <?php echo amountHTML($total)?></h5>
+			<h5>Total Services Amount : <?php echo amountHTML($service_bundle->public_price)?></h5>
+
+			<?php if( $service_bundle->discount ) :?>
+			<h5>Total Discounted Amount : <?php echo amountHTML($service_bundle->public_price - $service_bundle->discount)?></h5>
+			<?php endif?>
 		</div>
 	</div>
 <?php endbuild()?>

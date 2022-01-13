@@ -12,6 +12,7 @@
 
 
 			$this->model = model('SessionModel');
+			$this->user_model = model('UserModel');
 
 			$this->appointment = model('AppointmentModel');
 
@@ -89,11 +90,30 @@
 					'value' => $appointment->user_id
 				]);
 			}
+
+
+			$address = '';
+
+
+			if( $appointment->user_id )
+			{
+				$address_model = model('AddressModel');
+
+				$user = $this->user_model->get($appointment->user_id);
+
+				$address_object = $address_model->get( $user->address_id );
+
+				if( $address_object ){
+					$address = "{$address_object->block_house_number} {$address_object->street} {$address_object->city} {$address_object->city} {$address_object->barangay} , {$address_object->zip} ";
+				}
+			}
+
 			$form->setValue('doctor_id' , auth('id'));
 			$form->setValue('guest_name' , $appointment->guest_name);
 			$form->setValue('guest_phone' , $appointment->guest_phone);
 			$form->setValue('guest_email' , $appointment->guest_email);
 			$form->setValue('user_id' , $appointment->user_id);
+			$form->setValue('guest_address' , $address);
 
 			$form->customSubmit('Create Session');
 

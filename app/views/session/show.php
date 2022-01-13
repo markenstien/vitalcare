@@ -64,15 +64,15 @@
 							</tr>
 							<tr>
 								<td>Gender</td>
-								<td><?php echo $session->gender?></td>
+								<td><?php echo $doctor->gender?></td>
 							</tr>
 							<tr>
 								<td>Contact Number</td>
-								<td><?php echo $session->guest_phone?></td>
+								<td><?php echo $doctor->phone_number?></td>
 							</tr>
 							<tr>
 								<td>Email</td>
-								<td><?php echo $session->guest_email?></td>
+								<td><?php echo $doctor->email?></td>
 							</tr>
 						</table>
 					</div>

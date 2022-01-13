@@ -93,7 +93,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Modules</h6>
                 <a class="collapse-item" href="<?php echo _route('service:index')?>">Service</a>
-                <a class="collapse-item" href="<?php echo _route('service-bundle:index')?>">Bundles</a>
+                <a class="collapse-item" href="<?php echo _route('service-bundle:index')?>">Packages</a>
             </div>
         </div>
     </li>

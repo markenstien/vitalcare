@@ -65,7 +65,7 @@
 				'class' => 'form-control',
 
 				'options' => [
-					'label' => 'Custom Price'
+					'label' => 'Market Price',
 				],
 				'others' => $params['others'] ?? ''
 			];
