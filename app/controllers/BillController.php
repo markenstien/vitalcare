@@ -54,6 +54,8 @@
 				'bill'  => $bill
 			];
 
+			return $this->view('bill/frame' , $data);
+
 			if( is_null($type) )
 				return $this->view('bill/frame' , $data);
 

@@ -33,7 +33,7 @@
      * SYSTEM MODES
      * UP(UP AND RUNNING) , DOWN(MAINTENANCE) , DEV(DEVELOPMENT TEST DABATASE) , LOCAL (LOCAL MODE)
      */
-    $system['mode']  = 'up';
+    $system['mode']  = 'local';
 
     /**
      * SYSTEM SITE NAME
@@ -51,7 +51,7 @@
     $system['version']  = 'N/A';
 
 
-    $system['app_name'] = 'Vital Care Diagnostic and Billing System';
+    $system['app_name'] = 'RESERVATION AND BILLING SYSTEM WITH DIAGNOSTIC';
 
     $ui = [
         'vendor' => 'cork'

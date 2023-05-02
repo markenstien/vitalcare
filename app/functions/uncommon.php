@@ -311,7 +311,7 @@
             die($model . 'MODEL NOT FOUND');
         }
     }
-
+    
     function auth($key = null)
     {
         $auth = Session::get('auth');

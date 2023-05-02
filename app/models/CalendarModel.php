@@ -38,7 +38,8 @@
 				array_push($items , [
 					'title' => $appointment->reference,
 					'type'  => 'appointment',
-					'date'  => $appointment->date
+					'date'  => $appointment->date,
+					'id' => $appointment->id
 				]);
 			}
 

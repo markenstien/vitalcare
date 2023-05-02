@@ -10,6 +10,17 @@
   --color-base:  #F5F0F0;
 }
 
+
+:root {
+  --primary: #004A7C;
+  --warning : #FF5733;
+  --danger : #D72323;
+  --success : #28DF99;
+  --color-danger-secondary:  #FFC107;
+  --color-base:  #F5F0F0;
+}
+
+
 body
 {
 	background: var(--color-base);
@@ -148,4 +159,22 @@ div.navigationbar ul li a,
 #internalBackground
 {
 	background: #fff !important;
+}
+
+.btn-primary{
+	background-color: var(--primary);
+}
+
+.btn-warning{
+	background-color: var(--warning);
+}
+.btn-danger{
+	background-color: var(--danger);
+}
+.btn-success{
+	background-color: var(--success);
+}
+
+.navbar-nav.sidebar{
+	background: var(--primary);
 }

@@ -11,12 +11,12 @@
     switch(SYSTEM_MODE)
     {
         case 'local':
-            define('URL' , 'http://th.vitalcare');
+            define('URL' , 'http://dev.patientrecord');
             define('DBVENDOR' , 'mysql');
             define('DBHOST' , 'localhost');
             define('DBUSER' , 'root');
             define('DBPASS' , '');
-            define('DBNAME' , 'vitalcare');
+            define('DBNAME' , 'th_patientrecord');
 
             define('BASECONTROLLER' , 'AuthController');
             define('BASEMETHOD' , 'index');

@@ -42,12 +42,12 @@
 
     define('SITE_NAME' , 'vitalcare.sbs');
 
-    define('COMPANY_NAME' , 'VITAL CARE');
+    define('COMPANY_NAME' , 'M_THESIS');
 
-    define('KEY_WORDS' , 'VITALCARE,DIAGNOSTIC');
+    define('KEY_WORDS' , 'M_THESIS_RSV_BLLING');
 
 
-    define('DESCRIPTION' , 'VITALCARE,DIAGNOSTIC');
+    define('DESCRIPTION' , 'M_THESIS_RSV_BLLING');
 
     define('AUTHOR' , SITE_NAME);
 ?>

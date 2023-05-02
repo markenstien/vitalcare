@@ -12,13 +12,17 @@
 
 	<?php
 		$write_json_items = "";
-
-		foreach( json_decode($appointments) as $key => $appointment) 
+		$today = today();
+		foreach(json_decode($appointments) as $key => $appointment) 
 		{
+			$url = _route('appointment:show', $appointment->id);
+			
 			if( $key > 0)
 				$write_json_items.=',';
-			$write_json_items .= "{title:'{$appointment->title}' , start:'{$appointment->date}'}";
+			$write_json_items .= "{title:'{$appointment->title}' , start:'{$appointment->date}' , url:'{$url}'}";
 		}
+
+		echo $write_json_items;
 
 	?>
 	<script type="text/javascript" defer>
@@ -30,7 +34,7 @@
 	        center: 'title',
 	        right: 'month,agendaWeek,agendaDay,listMonth'
 	      },
-	      defaultDate: '2021-11-12',
+	      defaultDate: '<?php echo $today?>',
 	      navLinks: true, // can click day/week names to navigate views
 	      businessHours: true, // display business hours
 	      editable: true,
